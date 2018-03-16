@@ -1,52 +1,53 @@
-import React from 'react';
+import React from 'react'
+import PropTypes from 'prop-types'
 
 export default class RadioGroup extends React.Component {
-	constructor(props) {
-		super(props);
+  constructor (props) {
+    super(props)
 
-		this.state = {
-			checkedIndex: 0
-		};
-	}
-	onChange(index) {
-		return this.setState({
-			checkedIndex: index
-		});
-	}
+    this.state = {
+      checkedIndex: 0
+    }
+  }
+  onChange (index) {
+    return this.setState({
+      checkedIndex: index
+    })
+  }
 
-	getCheckedIndex() {
-		return this.state.checkedIndex;
-	}
+  getCheckedIndex () {
+    return this.state.checkedIndex
+  }
 
-	getChildren() {
-		const children = [];
-		let index = 0;
+  getChildren () {
+    const children = []
+    let index = 0
 
-		this.props.children.forEach((child, i) => {
-			const extra = {
-				key: i
-			};
-			const checked = this.state.checkedIndex === index;
-			extra.name = this.props.name;
-			extra.checked = checked;
-			extra.onChange = this.onChange.bind(this, index++);
-			children.push(React.cloneElement(child, extra));
-		});
+    this.props.children.forEach((child, i) => {
+      const extra = {
+        key: i
+      }
+      const checked = this.state.checkedIndex === index
+      extra.name = this.props.name
+      extra.checked = checked
+      extra.onChange = this.onChange.bind(this, index++)
+      children.push(React.cloneElement(child, extra))
+    })
 
-		this.children = children;
-		return this.children;
-	}
+    this.children = children
+    return this.children
+  }
 
-	render() {
-		return (
-			<div>
-				{this.getChildren()}
-			</div>
-		);
-	}
+  render () {
+    return (
+      <div>
+        {this.getChildren()}
+      </div>
+    )
+  }
 }
 
 RadioGroup.propTypes = {
-	children: React.PropTypes.node,
-	name: React.PropTypes.string.isRequired
-};
+  children: PropTypes.node,
+  name: PropTypes.string.isRequired
+}

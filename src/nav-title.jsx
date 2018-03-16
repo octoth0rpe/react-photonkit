@@ -1,15 +1,16 @@
-import React from 'react';
+import React from 'react'
+import PropTypes from 'prop-types'
 
 export default class NavTitle extends React.Component {
-	render() {
-		return (
-			<h5 className="nav-group-title">
-				{this.props.children}
-			</h5>
-		);
-	}
+  render () {
+    return (
+      <h5 className='nav-group-title'>
+        {this.props.children}
+      </h5>
+    )
+  }
 }
 
 NavTitle.propTypes = {
-	children: React.PropTypes.node
-};
+  children: PropTypes.node
+}

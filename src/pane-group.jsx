@@ -1,15 +1,16 @@
-import React from 'react';
+import React from 'react'
+import PropTypes from 'prop-types'
 
 export default class PaneGroup extends React.Component {
-	render() {
-		return (
-			<div className="pane-group">
-				{this.props.children}
-			</div>
-		);
-	}
+  render () {
+    return (
+      <div className='pane-group'>
+        {this.props.children}
+      </div>
+    )
+  }
 }
 
 PaneGroup.propTypes = {
-	children: React.PropTypes.node
-};
+  children: PropTypes.node
+}
