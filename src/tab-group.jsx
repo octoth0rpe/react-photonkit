@@ -55,7 +55,7 @@ export default class TabGroup extends Photon.Component {
 
   componentWillUnmount () {
     if (this.sortable) {
-      this.sortable.destory()
+      this.sortable.destroy()
       this.sortable = null
     }
   }

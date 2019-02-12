@@ -23,7 +23,7 @@ export default class ListGroup extends Photon.Component {
 
   componentWillUnmount () {
     if (this.sortable) {
-      this.sortable.destory()
+      this.sortable.destroy()
       this.sortable = null
     }
   }

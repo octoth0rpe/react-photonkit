@@ -626,21 +626,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 
 	if (process.env.NODE_ENV !== 'production') {
-	  var REACT_ELEMENT_TYPE = (typeof Symbol === 'function' &&
-	    Symbol.for &&
-	    Symbol.for('react.element')) ||
-	    0xeac7;
-
-	  var isValidElement = function(object) {
-	    return typeof object === 'object' &&
-	      object !== null &&
-	      object.$$typeof === REACT_ELEMENT_TYPE;
-	  };
+	  var ReactIs = __webpack_require__(12);
 
 	  // By explicitly using `prop-types` you are opting into new development behavior.
 	  // http://fb.me/prop-types-in-prod
 	  var throwOnDirectAccess = true;
-	  module.exports = __webpack_require__(12)(isValidElement, throwOnDirectAccess);
+	  module.exports = __webpack_require__(15)(ReactIs.isElement, throwOnDirectAccess);
 	} else {
 	  // By explicitly using `prop-types` you are opting into new production behavior.
 	  // http://fb.me/prop-types-in-prod
@@ -843,6 +834,275 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+
+	if (process.env.NODE_ENV === 'production') {
+	  module.exports = __webpack_require__(13);
+	} else {
+	  module.exports = __webpack_require__(14);
+	}
+
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports) {
+
+	/** @license React v16.8.1
+	 * react-is.production.min.js
+	 *
+	 * Copyright (c) Facebook, Inc. and its affiliates.
+	 *
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
+	 */
+
+	'use strict';Object.defineProperty(exports,"__esModule",{value:!0});
+	var b="function"===typeof Symbol&&Symbol.for,c=b?Symbol.for("react.element"):60103,d=b?Symbol.for("react.portal"):60106,e=b?Symbol.for("react.fragment"):60107,f=b?Symbol.for("react.strict_mode"):60108,g=b?Symbol.for("react.profiler"):60114,h=b?Symbol.for("react.provider"):60109,k=b?Symbol.for("react.context"):60110,l=b?Symbol.for("react.async_mode"):60111,m=b?Symbol.for("react.concurrent_mode"):60111,n=b?Symbol.for("react.forward_ref"):60112,p=b?Symbol.for("react.suspense"):60113,q=b?Symbol.for("react.memo"):
+	60115,r=b?Symbol.for("react.lazy"):60116;function t(a){if("object"===typeof a&&null!==a){var u=a.$$typeof;switch(u){case c:switch(a=a.type,a){case l:case m:case e:case g:case f:case p:return a;default:switch(a=a&&a.$$typeof,a){case k:case n:case h:return a;default:return u}}case r:case q:case d:return u}}}function v(a){return t(a)===m}exports.typeOf=t;exports.AsyncMode=l;exports.ConcurrentMode=m;exports.ContextConsumer=k;exports.ContextProvider=h;exports.Element=c;exports.ForwardRef=n;
+	exports.Fragment=e;exports.Lazy=r;exports.Memo=q;exports.Portal=d;exports.Profiler=g;exports.StrictMode=f;exports.Suspense=p;exports.isValidElementType=function(a){return"string"===typeof a||"function"===typeof a||a===e||a===m||a===g||a===f||a===p||"object"===typeof a&&null!==a&&(a.$$typeof===r||a.$$typeof===q||a.$$typeof===h||a.$$typeof===k||a.$$typeof===n)};exports.isAsyncMode=function(a){return v(a)||t(a)===l};exports.isConcurrentMode=v;exports.isContextConsumer=function(a){return t(a)===k};
+	exports.isContextProvider=function(a){return t(a)===h};exports.isElement=function(a){return"object"===typeof a&&null!==a&&a.$$typeof===c};exports.isForwardRef=function(a){return t(a)===n};exports.isFragment=function(a){return t(a)===e};exports.isLazy=function(a){return t(a)===r};exports.isMemo=function(a){return t(a)===q};exports.isPortal=function(a){return t(a)===d};exports.isProfiler=function(a){return t(a)===g};exports.isStrictMode=function(a){return t(a)===f};
+	exports.isSuspense=function(a){return t(a)===p};
+
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {/** @license React v16.8.1
+	 * react-is.development.js
+	 *
+	 * Copyright (c) Facebook, Inc. and its affiliates.
+	 *
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
+	 */
+
+	'use strict';
+
+
+
+	if (process.env.NODE_ENV !== "production") {
+	  (function() {
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', { value: true });
+
+	// The Symbol used to tag the ReactElement-like types. If there is no native Symbol
+	// nor polyfill, then a plain number is used for performance.
+	var hasSymbol = typeof Symbol === 'function' && Symbol.for;
+
+	var REACT_ELEMENT_TYPE = hasSymbol ? Symbol.for('react.element') : 0xeac7;
+	var REACT_PORTAL_TYPE = hasSymbol ? Symbol.for('react.portal') : 0xeaca;
+	var REACT_FRAGMENT_TYPE = hasSymbol ? Symbol.for('react.fragment') : 0xeacb;
+	var REACT_STRICT_MODE_TYPE = hasSymbol ? Symbol.for('react.strict_mode') : 0xeacc;
+	var REACT_PROFILER_TYPE = hasSymbol ? Symbol.for('react.profiler') : 0xead2;
+	var REACT_PROVIDER_TYPE = hasSymbol ? Symbol.for('react.provider') : 0xeacd;
+	var REACT_CONTEXT_TYPE = hasSymbol ? Symbol.for('react.context') : 0xeace;
+	var REACT_ASYNC_MODE_TYPE = hasSymbol ? Symbol.for('react.async_mode') : 0xeacf;
+	var REACT_CONCURRENT_MODE_TYPE = hasSymbol ? Symbol.for('react.concurrent_mode') : 0xeacf;
+	var REACT_FORWARD_REF_TYPE = hasSymbol ? Symbol.for('react.forward_ref') : 0xead0;
+	var REACT_SUSPENSE_TYPE = hasSymbol ? Symbol.for('react.suspense') : 0xead1;
+	var REACT_MEMO_TYPE = hasSymbol ? Symbol.for('react.memo') : 0xead3;
+	var REACT_LAZY_TYPE = hasSymbol ? Symbol.for('react.lazy') : 0xead4;
+
+	function isValidElementType(type) {
+	  return typeof type === 'string' || typeof type === 'function' ||
+	  // Note: its typeof might be other than 'symbol' or 'number' if it's a polyfill.
+	  type === REACT_FRAGMENT_TYPE || type === REACT_CONCURRENT_MODE_TYPE || type === REACT_PROFILER_TYPE || type === REACT_STRICT_MODE_TYPE || type === REACT_SUSPENSE_TYPE || typeof type === 'object' && type !== null && (type.$$typeof === REACT_LAZY_TYPE || type.$$typeof === REACT_MEMO_TYPE || type.$$typeof === REACT_PROVIDER_TYPE || type.$$typeof === REACT_CONTEXT_TYPE || type.$$typeof === REACT_FORWARD_REF_TYPE);
+	}
+
+	/**
+	 * Forked from fbjs/warning:
+	 * https://github.com/facebook/fbjs/blob/e66ba20ad5be433eb54423f2b097d829324d9de6/packages/fbjs/src/__forks__/warning.js
+	 *
+	 * Only change is we use console.warn instead of console.error,
+	 * and do nothing when 'console' is not supported.
+	 * This really simplifies the code.
+	 * ---
+	 * Similar to invariant but only logs a warning if the condition is not met.
+	 * This can be used to log issues in development environments in critical
+	 * paths. Removing the logging code for production environments will keep the
+	 * same logic and follow the same code paths.
+	 */
+
+	var lowPriorityWarning = function () {};
+
+	{
+	  var printWarning = function (format) {
+	    for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+	      args[_key - 1] = arguments[_key];
+	    }
+
+	    var argIndex = 0;
+	    var message = 'Warning: ' + format.replace(/%s/g, function () {
+	      return args[argIndex++];
+	    });
+	    if (typeof console !== 'undefined') {
+	      console.warn(message);
+	    }
+	    try {
+	      // --- Welcome to debugging React ---
+	      // This error was thrown as a convenience so that you can use this stack
+	      // to find the callsite that caused this warning to fire.
+	      throw new Error(message);
+	    } catch (x) {}
+	  };
+
+	  lowPriorityWarning = function (condition, format) {
+	    if (format === undefined) {
+	      throw new Error('`lowPriorityWarning(condition, format, ...args)` requires a warning ' + 'message argument');
+	    }
+	    if (!condition) {
+	      for (var _len2 = arguments.length, args = Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
+	        args[_key2 - 2] = arguments[_key2];
+	      }
+
+	      printWarning.apply(undefined, [format].concat(args));
+	    }
+	  };
+	}
+
+	var lowPriorityWarning$1 = lowPriorityWarning;
+
+	function typeOf(object) {
+	  if (typeof object === 'object' && object !== null) {
+	    var $$typeof = object.$$typeof;
+	    switch ($$typeof) {
+	      case REACT_ELEMENT_TYPE:
+	        var type = object.type;
+
+	        switch (type) {
+	          case REACT_ASYNC_MODE_TYPE:
+	          case REACT_CONCURRENT_MODE_TYPE:
+	          case REACT_FRAGMENT_TYPE:
+	          case REACT_PROFILER_TYPE:
+	          case REACT_STRICT_MODE_TYPE:
+	          case REACT_SUSPENSE_TYPE:
+	            return type;
+	          default:
+	            var $$typeofType = type && type.$$typeof;
+
+	            switch ($$typeofType) {
+	              case REACT_CONTEXT_TYPE:
+	              case REACT_FORWARD_REF_TYPE:
+	              case REACT_PROVIDER_TYPE:
+	                return $$typeofType;
+	              default:
+	                return $$typeof;
+	            }
+	        }
+	      case REACT_LAZY_TYPE:
+	      case REACT_MEMO_TYPE:
+	      case REACT_PORTAL_TYPE:
+	        return $$typeof;
+	    }
+	  }
+
+	  return undefined;
+	}
+
+	// AsyncMode is deprecated along with isAsyncMode
+	var AsyncMode = REACT_ASYNC_MODE_TYPE;
+	var ConcurrentMode = REACT_CONCURRENT_MODE_TYPE;
+	var ContextConsumer = REACT_CONTEXT_TYPE;
+	var ContextProvider = REACT_PROVIDER_TYPE;
+	var Element = REACT_ELEMENT_TYPE;
+	var ForwardRef = REACT_FORWARD_REF_TYPE;
+	var Fragment = REACT_FRAGMENT_TYPE;
+	var Lazy = REACT_LAZY_TYPE;
+	var Memo = REACT_MEMO_TYPE;
+	var Portal = REACT_PORTAL_TYPE;
+	var Profiler = REACT_PROFILER_TYPE;
+	var StrictMode = REACT_STRICT_MODE_TYPE;
+	var Suspense = REACT_SUSPENSE_TYPE;
+
+	var hasWarnedAboutDeprecatedIsAsyncMode = false;
+
+	// AsyncMode should be deprecated
+	function isAsyncMode(object) {
+	  {
+	    if (!hasWarnedAboutDeprecatedIsAsyncMode) {
+	      hasWarnedAboutDeprecatedIsAsyncMode = true;
+	      lowPriorityWarning$1(false, 'The ReactIs.isAsyncMode() alias has been deprecated, ' + 'and will be removed in React 17+. Update your code to use ' + 'ReactIs.isConcurrentMode() instead. It has the exact same API.');
+	    }
+	  }
+	  return isConcurrentMode(object) || typeOf(object) === REACT_ASYNC_MODE_TYPE;
+	}
+	function isConcurrentMode(object) {
+	  return typeOf(object) === REACT_CONCURRENT_MODE_TYPE;
+	}
+	function isContextConsumer(object) {
+	  return typeOf(object) === REACT_CONTEXT_TYPE;
+	}
+	function isContextProvider(object) {
+	  return typeOf(object) === REACT_PROVIDER_TYPE;
+	}
+	function isElement(object) {
+	  return typeof object === 'object' && object !== null && object.$$typeof === REACT_ELEMENT_TYPE;
+	}
+	function isForwardRef(object) {
+	  return typeOf(object) === REACT_FORWARD_REF_TYPE;
+	}
+	function isFragment(object) {
+	  return typeOf(object) === REACT_FRAGMENT_TYPE;
+	}
+	function isLazy(object) {
+	  return typeOf(object) === REACT_LAZY_TYPE;
+	}
+	function isMemo(object) {
+	  return typeOf(object) === REACT_MEMO_TYPE;
+	}
+	function isPortal(object) {
+	  return typeOf(object) === REACT_PORTAL_TYPE;
+	}
+	function isProfiler(object) {
+	  return typeOf(object) === REACT_PROFILER_TYPE;
+	}
+	function isStrictMode(object) {
+	  return typeOf(object) === REACT_STRICT_MODE_TYPE;
+	}
+	function isSuspense(object) {
+	  return typeOf(object) === REACT_SUSPENSE_TYPE;
+	}
+
+	exports.typeOf = typeOf;
+	exports.AsyncMode = AsyncMode;
+	exports.ConcurrentMode = ConcurrentMode;
+	exports.ContextConsumer = ContextConsumer;
+	exports.ContextProvider = ContextProvider;
+	exports.Element = Element;
+	exports.ForwardRef = ForwardRef;
+	exports.Fragment = Fragment;
+	exports.Lazy = Lazy;
+	exports.Memo = Memo;
+	exports.Portal = Portal;
+	exports.Profiler = Profiler;
+	exports.StrictMode = StrictMode;
+	exports.Suspense = Suspense;
+	exports.isValidElementType = isValidElementType;
+	exports.isAsyncMode = isAsyncMode;
+	exports.isConcurrentMode = isConcurrentMode;
+	exports.isContextConsumer = isContextConsumer;
+	exports.isContextProvider = isContextProvider;
+	exports.isElement = isElement;
+	exports.isForwardRef = isForwardRef;
+	exports.isFragment = isFragment;
+	exports.isLazy = isLazy;
+	exports.isMemo = isMemo;
+	exports.isPortal = isPortal;
+	exports.isProfiler = isProfiler;
+	exports.isStrictMode = isStrictMode;
+	exports.isSuspense = isSuspense;
+	  })();
+	}
+
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
 	/* WEBPACK VAR INJECTION */(function(process) {/**
 	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
@@ -852,13 +1112,33 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var emptyFunction = __webpack_require__(13);
-	var invariant = __webpack_require__(14);
-	var warning = __webpack_require__(15);
+	var ReactIs = __webpack_require__(12);
 	var assign = __webpack_require__(16);
 
 	var ReactPropTypesSecret = __webpack_require__(17);
 	var checkPropTypes = __webpack_require__(18);
+
+	var has = Function.call.bind(Object.prototype.hasOwnProperty);
+	var printWarning = function() {};
+
+	if (process.env.NODE_ENV !== 'production') {
+	  printWarning = function(text) {
+	    var message = 'Warning: ' + text;
+	    if (typeof console !== 'undefined') {
+	      console.error(message);
+	    }
+	    try {
+	      // --- Welcome to debugging React ---
+	      // This error was thrown as a convenience so that you can use this stack
+	      // to find the callsite that caused this warning to fire.
+	      throw new Error(message);
+	    } catch (x) {}
+	  };
+	}
+
+	function emptyFunctionThatReturnsNull() {
+	  return null;
+	}
 
 	module.exports = function(isValidElement, throwOnDirectAccess) {
 	  /* global Symbol */
@@ -949,6 +1229,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    any: createAnyTypeChecker(),
 	    arrayOf: createArrayOfTypeChecker,
 	    element: createElementTypeChecker(),
+	    elementType: createElementTypeTypeChecker(),
 	    instanceOf: createInstanceTypeChecker,
 	    node: createNodeChecker(),
 	    objectOf: createObjectOfTypeChecker,
@@ -1002,12 +1283,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	      if (secret !== ReactPropTypesSecret) {
 	        if (throwOnDirectAccess) {
 	          // New behavior only for users of `prop-types` package
-	          invariant(
-	            false,
+	          var err = new Error(
 	            'Calling PropTypes validators directly is not supported by the `prop-types` package. ' +
 	            'Use `PropTypes.checkPropTypes()` to call them. ' +
 	            'Read more at http://fb.me/use-check-prop-types'
 	          );
+	          err.name = 'Invariant Violation';
+	          throw err;
 	        } else if (process.env.NODE_ENV !== 'production' && typeof console !== 'undefined') {
 	          // Old behavior for people using React.PropTypes
 	          var cacheKey = componentName + ':' + propName;
@@ -1016,15 +1298,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	            // Avoid spamming the console because they are often not actionable except for lib authors
 	            manualPropTypeWarningCount < 3
 	          ) {
-	            warning(
-	              false,
+	            printWarning(
 	              'You are manually calling a React.PropTypes validation ' +
-	              'function for the `%s` prop on `%s`. This is deprecated ' +
+	              'function for the `' + propFullName + '` prop on `' + componentName  + '`. This is deprecated ' +
 	              'and will throw in the standalone `prop-types` package. ' +
 	              'You may be seeing this warning due to a third-party PropTypes ' +
-	              'library. See https://fb.me/react-warning-dont-call-proptypes ' + 'for details.',
-	              propFullName,
-	              componentName
+	              'library. See https://fb.me/react-warning-dont-call-proptypes ' + 'for details.'
 	            );
 	            manualPropTypeCallCache[cacheKey] = true;
 	            manualPropTypeWarningCount++;
@@ -1068,7 +1347,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 
 	  function createAnyTypeChecker() {
-	    return createChainableTypeChecker(emptyFunction.thatReturnsNull);
+	    return createChainableTypeChecker(emptyFunctionThatReturnsNull);
 	  }
 
 	  function createArrayOfTypeChecker(typeChecker) {
@@ -1104,6 +1383,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return createChainableTypeChecker(validate);
 	  }
 
+	  function createElementTypeTypeChecker() {
+	    function validate(props, propName, componentName, location, propFullName) {
+	      var propValue = props[propName];
+	      if (!ReactIs.isValidElementType(propValue)) {
+	        var propType = getPropType(propValue);
+	        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected a single ReactElement type.'));
+	      }
+	      return null;
+	    }
+	    return createChainableTypeChecker(validate);
+	  }
+
 	  function createInstanceTypeChecker(expectedClass) {
 	    function validate(props, propName, componentName, location, propFullName) {
 	      if (!(props[propName] instanceof expectedClass)) {
@@ -1118,8 +1409,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  function createEnumTypeChecker(expectedValues) {
 	    if (!Array.isArray(expectedValues)) {
-	      process.env.NODE_ENV !== 'production' ? warning(false, 'Invalid argument supplied to oneOf, expected an instance of array.') : void 0;
-	      return emptyFunction.thatReturnsNull;
+	      if (process.env.NODE_ENV !== 'production') {
+	        if (arguments.length > 1) {
+	          printWarning(
+	            'Invalid arguments supplied to oneOf, expected an array, got ' + arguments.length + ' arguments. ' +
+	            'A common mistake is to write oneOf(x, y, z) instead of oneOf([x, y, z]).'
+	          );
+	        } else {
+	          printWarning('Invalid argument supplied to oneOf, expected an array.');
+	        }
+	      }
+	      return emptyFunctionThatReturnsNull;
 	    }
 
 	    function validate(props, propName, componentName, location, propFullName) {
@@ -1130,8 +1430,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	      }
 
-	      var valuesString = JSON.stringify(expectedValues);
-	      return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of value `' + propValue + '` ' + ('supplied to `' + componentName + '`, expected one of ' + valuesString + '.'));
+	      var valuesString = JSON.stringify(expectedValues, function replacer(key, value) {
+	        if (getPropType(value) === 'symbol') {
+	          return String(value);
+	        }
+	        return value;
+	      });
+	      return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of value `' + String(propValue) + '` ' + ('supplied to `' + componentName + '`, expected one of ' + valuesString + '.'));
 	    }
 	    return createChainableTypeChecker(validate);
 	  }
@@ -1147,7 +1452,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected an object.'));
 	      }
 	      for (var key in propValue) {
-	        if (propValue.hasOwnProperty(key)) {
+	        if (has(propValue, key)) {
 	          var error = typeChecker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret);
 	          if (error instanceof Error) {
 	            return error;
@@ -1161,21 +1466,18 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  function createUnionTypeChecker(arrayOfTypeCheckers) {
 	    if (!Array.isArray(arrayOfTypeCheckers)) {
-	      process.env.NODE_ENV !== 'production' ? warning(false, 'Invalid argument supplied to oneOfType, expected an instance of array.') : void 0;
-	      return emptyFunction.thatReturnsNull;
+	      process.env.NODE_ENV !== 'production' ? printWarning('Invalid argument supplied to oneOfType, expected an instance of array.') : void 0;
+	      return emptyFunctionThatReturnsNull;
 	    }
 
 	    for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
 	      var checker = arrayOfTypeCheckers[i];
 	      if (typeof checker !== 'function') {
-	        warning(
-	          false,
+	        printWarning(
 	          'Invalid argument supplied to oneOfType. Expected an array of check functions, but ' +
-	          'received %s at index %s.',
-	          getPostfixForTypeWarning(checker),
-	          i
+	          'received ' + getPostfixForTypeWarning(checker) + ' at index ' + i + '.'
 	        );
-	        return emptyFunction.thatReturnsNull;
+	        return emptyFunctionThatReturnsNull;
 	      }
 	    }
 
@@ -1381,179 +1683,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 
 	  ReactPropTypes.checkPropTypes = checkPropTypes;
+	  ReactPropTypes.resetWarningCache = checkPropTypes.resetWarningCache;
 	  ReactPropTypes.PropTypes = ReactPropTypes;
 
 	  return ReactPropTypes;
 	};
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
-
-/***/ }),
-/* 13 */
-/***/ (function(module, exports) {
-
-	"use strict";
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 *
-	 * This source code is licensed under the MIT license found in the
-	 * LICENSE file in the root directory of this source tree.
-	 *
-	 * 
-	 */
-
-	function makeEmptyFunction(arg) {
-	  return function () {
-	    return arg;
-	  };
-	}
-
-	/**
-	 * This function accepts and discards inputs; it has no side effects. This is
-	 * primarily useful idiomatically for overridable function endpoints which
-	 * always need to be callable, since JS lacks a null-call idiom ala Cocoa.
-	 */
-	var emptyFunction = function emptyFunction() {};
-
-	emptyFunction.thatReturns = makeEmptyFunction;
-	emptyFunction.thatReturnsFalse = makeEmptyFunction(false);
-	emptyFunction.thatReturnsTrue = makeEmptyFunction(true);
-	emptyFunction.thatReturnsNull = makeEmptyFunction(null);
-	emptyFunction.thatReturnsThis = function () {
-	  return this;
-	};
-	emptyFunction.thatReturnsArgument = function (arg) {
-	  return arg;
-	};
-
-	module.exports = emptyFunction;
-
-/***/ }),
-/* 14 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 *
-	 * This source code is licensed under the MIT license found in the
-	 * LICENSE file in the root directory of this source tree.
-	 *
-	 */
-
-	'use strict';
-
-	/**
-	 * Use invariant() to assert state which your program assumes to be true.
-	 *
-	 * Provide sprintf-style format (only %s is supported) and arguments
-	 * to provide information about what broke and what you were
-	 * expecting.
-	 *
-	 * The invariant message will be stripped in production, but the invariant
-	 * will remain to ensure logic does not differ in production.
-	 */
-
-	var validateFormat = function validateFormat(format) {};
-
-	if (process.env.NODE_ENV !== 'production') {
-	  validateFormat = function validateFormat(format) {
-	    if (format === undefined) {
-	      throw new Error('invariant requires an error message argument');
-	    }
-	  };
-	}
-
-	function invariant(condition, format, a, b, c, d, e, f) {
-	  validateFormat(format);
-
-	  if (!condition) {
-	    var error;
-	    if (format === undefined) {
-	      error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');
-	    } else {
-	      var args = [a, b, c, d, e, f];
-	      var argIndex = 0;
-	      error = new Error(format.replace(/%s/g, function () {
-	        return args[argIndex++];
-	      }));
-	      error.name = 'Invariant Violation';
-	    }
-
-	    error.framesToPop = 1; // we don't care about invariant's own frame
-	    throw error;
-	  }
-	}
-
-	module.exports = invariant;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
-
-/***/ }),
-/* 15 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright (c) 2014-present, Facebook, Inc.
-	 *
-	 * This source code is licensed under the MIT license found in the
-	 * LICENSE file in the root directory of this source tree.
-	 *
-	 */
-
-	'use strict';
-
-	var emptyFunction = __webpack_require__(13);
-
-	/**
-	 * Similar to invariant but only logs a warning if the condition is not met.
-	 * This can be used to log issues in development environments in critical
-	 * paths. Removing the logging code for production environments will keep the
-	 * same logic and follow the same code paths.
-	 */
-
-	var warning = emptyFunction;
-
-	if (process.env.NODE_ENV !== 'production') {
-	  var printWarning = function printWarning(format) {
-	    for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-	      args[_key - 1] = arguments[_key];
-	    }
-
-	    var argIndex = 0;
-	    var message = 'Warning: ' + format.replace(/%s/g, function () {
-	      return args[argIndex++];
-	    });
-	    if (typeof console !== 'undefined') {
-	      console.error(message);
-	    }
-	    try {
-	      // --- Welcome to debugging React ---
-	      // This error was thrown as a convenience so that you can use this stack
-	      // to find the callsite that caused this warning to fire.
-	      throw new Error(message);
-	    } catch (x) {}
-	  };
-
-	  warning = function warning(condition, format) {
-	    if (format === undefined) {
-	      throw new Error('`warning(condition, format, ...args)` requires a warning ' + 'message argument');
-	    }
-
-	    if (format.indexOf('Failed Composite propType: ') === 0) {
-	      return; // Ignore CompositeComponent proptype check.
-	    }
-
-	    if (!condition) {
-	      for (var _len2 = arguments.length, args = Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
-	        args[_key2 - 2] = arguments[_key2];
-	      }
-
-	      printWarning.apply(undefined, [format].concat(args));
-	    }
-	  };
-	}
-
-	module.exports = warning;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
 
 /***/ }),
@@ -1683,11 +1818,25 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
+	var printWarning = function() {};
+
 	if (process.env.NODE_ENV !== 'production') {
-	  var invariant = __webpack_require__(14);
-	  var warning = __webpack_require__(15);
 	  var ReactPropTypesSecret = __webpack_require__(17);
 	  var loggedTypeFailures = {};
+	  var has = Function.call.bind(Object.prototype.hasOwnProperty);
+
+	  printWarning = function(text) {
+	    var message = 'Warning: ' + text;
+	    if (typeof console !== 'undefined') {
+	      console.error(message);
+	    }
+	    try {
+	      // --- Welcome to debugging React ---
+	      // This error was thrown as a convenience so that you can use this stack
+	      // to find the callsite that caused this warning to fire.
+	      throw new Error(message);
+	    } catch (x) {}
+	  };
 	}
 
 	/**
@@ -1704,7 +1853,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
 	  if (process.env.NODE_ENV !== 'production') {
 	    for (var typeSpecName in typeSpecs) {
-	      if (typeSpecs.hasOwnProperty(typeSpecName)) {
+	      if (has(typeSpecs, typeSpecName)) {
 	        var error;
 	        // Prop type validation may throw. In case they do, we don't want to
 	        // fail the render phase where it didn't fail before. So we log it.
@@ -1712,12 +1861,28 @@ return /******/ (function(modules) { // webpackBootstrap
 	        try {
 	          // This is intentionally an invariant that gets caught. It's the same
 	          // behavior as without this statement except with a better message.
-	          invariant(typeof typeSpecs[typeSpecName] === 'function', '%s: %s type `%s` is invalid; it must be a function, usually from ' + 'the `prop-types` package, but received `%s`.', componentName || 'React class', location, typeSpecName, typeof typeSpecs[typeSpecName]);
+	          if (typeof typeSpecs[typeSpecName] !== 'function') {
+	            var err = Error(
+	              (componentName || 'React class') + ': ' + location + ' type `' + typeSpecName + '` is invalid; ' +
+	              'it must be a function, usually from the `prop-types` package, but received `' + typeof typeSpecs[typeSpecName] + '`.'
+	            );
+	            err.name = 'Invariant Violation';
+	            throw err;
+	          }
 	          error = typeSpecs[typeSpecName](values, typeSpecName, componentName, location, null, ReactPropTypesSecret);
 	        } catch (ex) {
 	          error = ex;
 	        }
-	        warning(!error || error instanceof Error, '%s: type specification of %s `%s` is invalid; the type checker ' + 'function must return `null` or an `Error` but returned a %s. ' + 'You may have forgotten to pass an argument to the type checker ' + 'creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and ' + 'shape all require an argument).', componentName || 'React class', location, typeSpecName, typeof error);
+	        if (error && !(error instanceof Error)) {
+	          printWarning(
+	            (componentName || 'React class') + ': type specification of ' +
+	            location + ' `' + typeSpecName + '` is invalid; the type checker ' +
+	            'function must return `null` or an `Error` but returned a ' + typeof error + '. ' +
+	            'You may have forgotten to pass an argument to the type checker ' +
+	            'creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and ' +
+	            'shape all require an argument).'
+	          );
+	        }
 	        if (error instanceof Error && !(error.message in loggedTypeFailures)) {
 	          // Only monitor this failure once because there tends to be a lot of the
 	          // same error.
@@ -1725,10 +1890,23 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	          var stack = getStack ? getStack() : '';
 
-	          warning(false, 'Failed %s type: %s%s', location, error.message, stack != null ? stack : '');
+	          printWarning(
+	            'Failed ' + location + ' type: ' + error.message + (stack != null ? stack : '')
+	          );
 	        }
 	      }
 	    }
+	  }
+	}
+
+	/**
+	 * Resets warning cache when testing.
+	 *
+	 * @private
+	 */
+	checkPropTypes.resetWarningCache = function() {
+	  if (process.env.NODE_ENV !== 'production') {
+	    loggedTypeFailures = {};
 	  }
 	}
 
@@ -1749,9 +1927,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var emptyFunction = __webpack_require__(13);
-	var invariant = __webpack_require__(14);
 	var ReactPropTypesSecret = __webpack_require__(17);
+
+	function emptyFunction() {}
+	function emptyFunctionWithReset() {}
+	emptyFunctionWithReset.resetWarningCache = emptyFunction;
 
 	module.exports = function() {
 	  function shim(props, propName, componentName, location, propFullName, secret) {
@@ -1759,12 +1939,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	      // It is still safe when called from React.
 	      return;
 	    }
-	    invariant(
-	      false,
+	    var err = new Error(
 	      'Calling PropTypes validators directly is not supported by the `prop-types` package. ' +
 	      'Use PropTypes.checkPropTypes() to call them. ' +
 	      'Read more at http://fb.me/use-check-prop-types'
 	    );
+	    err.name = 'Invariant Violation';
+	    throw err;
 	  };
 	  shim.isRequired = shim;
 	  function getShim() {
@@ -1784,16 +1965,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	    any: shim,
 	    arrayOf: getShim,
 	    element: shim,
+	    elementType: shim,
 	    instanceOf: getShim,
 	    node: shim,
 	    objectOf: getShim,
 	    oneOf: getShim,
 	    oneOfType: getShim,
 	    shape: getShim,
-	    exact: getShim
+	    exact: getShim,
+
+	    checkPropTypes: emptyFunctionWithReset,
+	    resetWarningCache: emptyFunction
 	  };
 
-	  ReactPropTypes.checkPropTypes = emptyFunction;
 	  ReactPropTypes.PropTypes = ReactPropTypes;
 
 	  return ReactPropTypes;
@@ -1926,7 +2110,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
-	  Copyright (c) 2016 Jed Watson.
+	  Copyright (c) 2017 Jed Watson.
 	  Licensed under the MIT License (MIT), see
 	  http://jedwatson.github.io/classnames
 	*/
@@ -1948,8 +2132,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 				if (argType === 'string' || argType === 'number') {
 					classes.push(arg);
-				} else if (Array.isArray(arg)) {
-					classes.push(classNames.apply(null, arg));
+				} else if (Array.isArray(arg) && arg.length) {
+					var inner = classNames.apply(null, arg);
+					if (inner) {
+						classes.push(inner);
+					}
 				} else if (argType === 'object') {
 					for (var key in arg) {
 						if (hasOwn.call(arg, key) && arg[key]) {
@@ -1963,6 +2150,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 
 		if (typeof module !== 'undefined' && module.exports) {
+			classNames.default = classNames;
 			module.exports = classNames;
 		} else if (true) {
 			// register as 'classnames', consistent with npm package name
@@ -2531,7 +2719,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: 'componentWillUnmount',
 	    value: function componentWillUnmount() {
 	      if (this.sortable) {
-	        this.sortable.destory();
+	        this.sortable.destroy();
 	        this.sortable = null;
 	      }
 	    }
@@ -2571,6 +2759,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**!
 	 * Sortable
 	 * @author	RubaXa   <trash@rubaxa.org>
+	 * @author	owenm    <owen23355@gmail.com>
 	 * @license MIT
 	 */
 
@@ -2608,26 +2797,43 @@ return /******/ (function(modules) { // webpackBootstrap
 			scrollParentEl,
 			scrollCustomFn,
 
-			lastEl,
-			lastCSS,
-			lastParentCSS,
-
 			oldIndex,
 			newIndex,
 
 			activeGroup,
 			putSortable,
 
-			autoScroll = {},
+			autoScrolls = [],
+			scrolling = false,
+
+			awaitingDragStarted = false,
+			ignoreNextClick = false,
+			sortables = [],
+
+			pointerElemChangedInterval,
+			lastPointerElemX,
+			lastPointerElemY,
 
 			tapEvt,
 			touchEvt,
 
 			moved,
 
+
+			lastTarget,
+			lastDirection,
+			pastFirstInvertThresh = false,
+			isCircumstantialInvert = false,
+			lastMode, // 'swap' or 'insert'
+
+			targetMoveDistance,
+
+
+			forRepaintDummy,
+			realDragElRect, // dragEl rect after current animation
+
 			/** @const */
 			R_SPACE = /\s+/g,
-			R_FLOAT = /left|right|inline/,
 
 			expando = 'Sortable' + (new Date).getTime(),
 
@@ -2639,34 +2845,150 @@ return /******/ (function(modules) { // webpackBootstrap
 			$ = win.jQuery || win.Zepto,
 			Polymer = win.Polymer,
 
-			captureMode = false,
-			passiveMode = false,
+			captureMode = {
+				capture: false,
+				passive: false
+			},
 
+			IE11OrLess = !!navigator.userAgent.match(/(?:Trident.*rv[ :]?11\.|msie|iemobile)/i),
+			Edge = !!navigator.userAgent.match(/Edge/i),
+			// FireFox = !!navigator.userAgent.match(/firefox/i),
+
+			CSSFloatProperty = Edge || IE11OrLess ? 'cssFloat' : 'float',
+
+			// This will not pass for IE9, because IE9 DnD only works on anchors
 			supportDraggable = ('draggable' in document.createElement('div')),
-			supportCssPointerEvents = (function (el) {
-				// false when IE11
-				if (!!navigator.userAgent.match(/(?:Trident.*rv[ :]?11\.|msie)/i)) {
+
+			supportCssPointerEvents = (function() {
+				// false when <= IE11
+				if (IE11OrLess) {
 					return false;
 				}
-				el = document.createElement('x');
+				var el = document.createElement('x');
 				el.style.cssText = 'pointer-events:auto';
 				return el.style.pointerEvents === 'auto';
 			})(),
 
 			_silent = false,
+			_alignedSilent = false,
 
 			abs = Math.abs,
 			min = Math.min,
 
 			savedInputChecked = [],
-			touchDragOverListeners = [],
 
-			_autoScroll = _throttle(function (/**Event*/evt, /**Object*/options, /**HTMLElement*/rootEl) {
+			_detectDirection = function(el, options) {
+				var elCSS = _css(el),
+					elWidth = parseInt(elCSS.width),
+					child1 = _getChild(el, 0, options),
+					child2 = _getChild(el, 1, options),
+					firstChildCSS = child1 && _css(child1),
+					secondChildCSS = child2 && _css(child2),
+					firstChildWidth = firstChildCSS && parseInt(firstChildCSS.marginLeft) + parseInt(firstChildCSS.marginRight) + _getRect(child1).width,
+					secondChildWidth = secondChildCSS && parseInt(secondChildCSS.marginLeft) + parseInt(secondChildCSS.marginRight) + _getRect(child2).width;
+				if (elCSS.display === 'flex') {
+					return elCSS.flexDirection === 'column' || elCSS.flexDirection === 'column-reverse'
+					? 'vertical' : 'horizontal';
+				}
+				if (child1 && firstChildCSS.float !== 'none') {
+					var touchingSideChild2 = firstChildCSS.float === 'left' ? 'left' : 'right';
+
+					return child2 && (secondChildCSS.clear === 'both' || secondChildCSS.clear === touchingSideChild2) ?
+						'vertical' : 'horizontal';
+				}
+				return (child1 &&
+					(
+						firstChildCSS.display === 'block' ||
+						firstChildCSS.display === 'flex' ||
+						firstChildCSS.display === 'table' ||
+						firstChildCSS.display === 'grid' ||
+						firstChildWidth >= elWidth &&
+						elCSS[CSSFloatProperty] === 'none' ||
+						child2 &&
+						elCSS[CSSFloatProperty] === 'none' &&
+						firstChildWidth + secondChildWidth > elWidth
+					) ?
+					'vertical' : 'horizontal'
+				);
+			},
+
+			/**
+			 * Detects first nearest empty sortable to X and Y position using emptyInsertThreshold.
+			 * @param  {Number} x      X position
+			 * @param  {Number} y      Y position
+			 * @return {HTMLElement}   Element of the first found nearest Sortable
+			 */
+			_detectNearestEmptySortable = function(x, y) {
+				for (var i = 0; i < sortables.length; i++) {
+					if (sortables[i].children.length) continue;
+
+					var rect = _getRect(sortables[i]),
+						threshold = sortables[i][expando].options.emptyInsertThreshold,
+						insideHorizontally = x >= (rect.left - threshold) && x <= (rect.right + threshold),
+						insideVertically = y >= (rect.top - threshold) && y <= (rect.bottom + threshold);
+
+					if (insideHorizontally && insideVertically) {
+						return sortables[i];
+					}
+				}
+			},
+
+			_isClientInRowColumn = function(x, y, el, axis, options) {
+				var targetRect = _getRect(el),
+					targetS1Opp = axis === 'vertical' ? targetRect.left : targetRect.top,
+					targetS2Opp = axis === 'vertical' ? targetRect.right : targetRect.bottom,
+					mouseOnOppAxis = axis === 'vertical' ? x : y;
+
+				return targetS1Opp < mouseOnOppAxis && mouseOnOppAxis < targetS2Opp;
+			},
+
+			_isElInRowColumn = function(el1, el2, axis) {
+				var el1Rect = el1 === dragEl && realDragElRect || _getRect(el1),
+					el2Rect = el2 === dragEl && realDragElRect || _getRect(el2),
+					el1S1Opp = axis === 'vertical' ? el1Rect.left : el1Rect.top,
+					el1S2Opp = axis === 'vertical' ? el1Rect.right : el1Rect.bottom,
+					el1OppLength = axis === 'vertical' ? el1Rect.width : el1Rect.height,
+					el2S1Opp = axis === 'vertical' ? el2Rect.left : el2Rect.top,
+					el2S2Opp = axis === 'vertical' ? el2Rect.right : el2Rect.bottom,
+					el2OppLength = axis === 'vertical' ? el2Rect.width : el2Rect.height;
+
+				return (
+					el1S1Opp === el2S1Opp ||
+					el1S2Opp === el2S2Opp ||
+					(el1S1Opp + el1OppLength / 2) === (el2S1Opp + el2OppLength / 2)
+				);
+			},
+
+			_getParentAutoScrollElement = function(el, includeSelf) {
+				// skip to window
+				if (!el || !el.getBoundingClientRect) return win;
+
+				var elem = el;
+				var gotSelf = false;
+				do {
+					// we don't need to get elem css if it isn't even overflowing in the first place (performance)
+					if (elem.clientWidth < elem.scrollWidth || elem.clientHeight < elem.scrollHeight) {
+						var elemCSS = _css(elem);
+						if (
+							elem.clientWidth < elem.scrollWidth && (elemCSS.overflowX == 'auto' || elemCSS.overflowX == 'scroll') ||
+							elem.clientHeight < elem.scrollHeight && (elemCSS.overflowY == 'auto' || elemCSS.overflowY == 'scroll')
+						) {
+							if (!elem || !elem.getBoundingClientRect || elem === document.body) return win;
+
+							if (gotSelf || includeSelf) return elem;
+							gotSelf = true;
+						}
+					}
+				/* jshint boss:true */
+				} while (elem = elem.parentNode);
+
+				return win;
+			},
+
+			_autoScroll = _throttle(function (/**Event*/evt, /**Object*/options, /**HTMLElement*/rootEl, /**Boolean*/isFallback) {
 				// Bug: https://bugzilla.mozilla.org/show_bug.cgi?id=505521
-				if (rootEl && options.scroll) {
-					var _this = rootEl[expando],
-						el,
-						rect,
+				if (options.scroll) {
+					var _this = rootEl ? rootEl[expando] : window,
 						sens = options.scrollSensitivity,
 						speed = options.scrollSpeed,
 
@@ -2676,98 +2998,158 @@ return /******/ (function(modules) { // webpackBootstrap
 						winWidth = window.innerWidth,
 						winHeight = window.innerHeight,
 
-						vx,
-						vy,
+						scrollThisInstance = false;
 
-						scrollOffsetX,
-						scrollOffsetY
-					;
-
-					// Delect scrollEl
+					// Detect scrollEl
 					if (scrollParentEl !== rootEl) {
+						_clearAutoScrolls();
+
 						scrollEl = options.scroll;
-						scrollParentEl = rootEl;
 						scrollCustomFn = options.scrollFn;
 
 						if (scrollEl === true) {
-							scrollEl = rootEl;
-
-							do {
-								if ((scrollEl.offsetWidth < scrollEl.scrollWidth) ||
-									(scrollEl.offsetHeight < scrollEl.scrollHeight)
-								) {
-									break;
-								}
-								/* jshint boss:true */
-							} while (scrollEl = scrollEl.parentNode);
+							scrollEl = _getParentAutoScrollElement(rootEl, true);
+							scrollParentEl = scrollEl;
 						}
 					}
 
-					if (scrollEl) {
-						el = scrollEl;
-						rect = scrollEl.getBoundingClientRect();
-						vx = (abs(rect.right - x) <= sens) - (abs(rect.left - x) <= sens);
-						vy = (abs(rect.bottom - y) <= sens) - (abs(rect.top - y) <= sens);
-					}
+
+					var layersOut = 0;
+					var currentParent = scrollEl;
+					do {
+						var	el = currentParent,
+							rect = _getRect(el),
+
+							top = rect.top,
+							bottom = rect.bottom,
+							left = rect.left,
+							right = rect.right,
+
+							width = rect.width,
+							height = rect.height,
+
+							scrollWidth,
+							scrollHeight,
+
+							css,
+
+							vx,
+							vy,
+
+							canScrollX,
+							canScrollY,
+
+							scrollPosX,
+							scrollPosY;
 
 
-					if (!(vx || vy)) {
-						vx = (winWidth - x <= sens) - (x <= sens);
-						vy = (winHeight - y <= sens) - (y <= sens);
+						if (el !== win) {
+							scrollWidth = el.scrollWidth;
+							scrollHeight = el.scrollHeight;
 
-						/* jshint expr:true */
-						(vx || vy) && (el = win);
-					}
+							css = _css(el);
 
+							canScrollX = width < scrollWidth && (css.overflowX === 'auto' || css.overflowX === 'scroll');
+							canScrollY = height < scrollHeight && (css.overflowY === 'auto' || css.overflowY === 'scroll');
 
-					if (autoScroll.vx !== vx || autoScroll.vy !== vy || autoScroll.el !== el) {
-						autoScroll.el = el;
-						autoScroll.vx = vx;
-						autoScroll.vy = vy;
+							scrollPosX = el.scrollLeft;
+							scrollPosY = el.scrollTop;
+						} else {
+							scrollWidth = document.documentElement.scrollWidth;
+							scrollHeight = document.documentElement.scrollHeight;
 
-						clearInterval(autoScroll.pid);
+							css = _css(document.documentElement);
 
-						if (el) {
-							autoScroll.pid = setInterval(function () {
-								scrollOffsetY = vy ? vy * speed : 0;
-								scrollOffsetX = vx ? vx * speed : 0;
+							canScrollX = width < scrollWidth && (css.overflowX === 'auto' || css.overflowX === 'scroll' || css.overflowX === 'visible');
+							canScrollY = height < scrollHeight && (css.overflowY === 'auto' || css.overflowY === 'scroll' || css.overflowY === 'visible');
 
-								if ('function' === typeof(scrollCustomFn)) {
-									return scrollCustomFn.call(_this, scrollOffsetX, scrollOffsetY, evt);
-								}
-
-								if (el === win) {
-									win.scrollTo(win.pageXOffset + scrollOffsetX, win.pageYOffset + scrollOffsetY);
-								} else {
-									el.scrollTop += scrollOffsetY;
-									el.scrollLeft += scrollOffsetX;
-								}
-							}, 24);
+							scrollPosX = document.documentElement.scrollLeft;
+							scrollPosY = document.documentElement.scrollTop;
 						}
-					}
+
+						vx = canScrollX && (abs(right - x) <= sens && (scrollPosX + width) < scrollWidth) - (abs(left - x) <= sens && !!scrollPosX);
+
+						vy = canScrollY && (abs(bottom - y) <= sens && (scrollPosY + height) < scrollHeight) - (abs(top - y) <= sens && !!scrollPosY);
+
+
+						if (!autoScrolls[layersOut]) {
+							for (var i = 0; i <= layersOut; i++) {
+								if (!autoScrolls[i]) {
+									autoScrolls[i] = {};
+								}
+							}
+						}
+
+						if (autoScrolls[layersOut].vx != vx || autoScrolls[layersOut].vy != vy || autoScrolls[layersOut].el !== el) {
+							autoScrolls[layersOut].el = el;
+							autoScrolls[layersOut].vx = vx;
+							autoScrolls[layersOut].vy = vy;
+
+							clearInterval(autoScrolls[layersOut].pid);
+
+							if (el && (vx != 0 || vy != 0)) {
+								scrollThisInstance = true;
+								/* jshint loopfunc:true */
+								autoScrolls[layersOut].pid = setInterval((function () {
+									// emulate drag over during autoscroll (fallback), emulating native DnD behaviour
+									if (isFallback && this.layer === 0) {
+										Sortable.active._emulateDragOver(true);
+									}
+									var scrollOffsetY = autoScrolls[this.layer].vy ? autoScrolls[this.layer].vy * speed : 0;
+									var scrollOffsetX = autoScrolls[this.layer].vx ? autoScrolls[this.layer].vx * speed : 0;
+
+									if ('function' === typeof(scrollCustomFn)) {
+										if (scrollCustomFn.call(_this, scrollOffsetX, scrollOffsetY, evt, touchEvt, autoScrolls[this.layer].el) !== 'continue') {
+											return;
+										}
+									}
+									if (autoScrolls[this.layer].el === win) {
+										win.scrollTo(win.pageXOffset + scrollOffsetX, win.pageYOffset + scrollOffsetY);
+									} else {
+										autoScrolls[this.layer].el.scrollTop += scrollOffsetY;
+										autoScrolls[this.layer].el.scrollLeft += scrollOffsetX;
+									}
+								}).bind({layer: layersOut}), 24);
+							}
+						}
+						layersOut++;
+					} while (options.bubbleScroll && currentParent !== win && (currentParent = _getParentAutoScrollElement(currentParent, false)));
+					scrolling = scrollThisInstance; // in case another function catches scrolling as false in between when it is not
 				}
 			}, 30),
 
+			_clearAutoScrolls = function () {
+				autoScrolls.forEach(function(autoScroll) {
+					clearInterval(autoScroll.pid);
+				});
+				autoScrolls = [];
+			},
+
 			_prepareGroup = function (options) {
 				function toFn(value, pull) {
-					if (value === void 0 || value === true) {
-						value = group.name;
-					}
+					return function(to, from, dragEl, evt) {
+						var sameGroup = to.options.group.name &&
+										from.options.group.name &&
+										to.options.group.name === from.options.group.name;
 
-					if (typeof value === 'function') {
-						return value;
-					} else {
-						return function (to, from) {
-							var fromGroup = from.options.group.name;
+						if (value == null && (pull || sameGroup)) {
+							// Default pull value
+							// Default pull and put value if same group
+							return true;
+						} else if (value == null || value === false) {
+							return false;
+						} else if (pull && value === 'clone') {
+							return value;
+						} else if (typeof value === 'function') {
+							return toFn(value(to, from, dragEl, evt), pull)(to, from, dragEl, evt);
+						} else {
+							var otherGroup = (pull ? to : from).options.group.name;
 
-							return pull
-								? value
-								: value && (value.join
-									? value.indexOf(fromGroup) > -1
-									: (fromGroup == value)
-								);
-						};
-					}
+							return (value === true ||
+							(typeof value === 'string' && value === otherGroup) ||
+							(value.join && value.indexOf(otherGroup) > -1));
+						}
+					};
 				}
 
 				var group = {};
@@ -2783,23 +3165,79 @@ return /******/ (function(modules) { // webpackBootstrap
 				group.revertClone = originalGroup.revertClone;
 
 				options.group = group;
-			}
-		;
+			},
 
-		// Detect support a passive mode
-		try {
-			window.addEventListener('test', null, Object.defineProperty({}, 'passive', {
-				get: function () {
-					// `false`, because everything starts to work incorrectly and instead of d'n'd,
-					// begins the page has scrolled.
-					passiveMode = false;
-					captureMode = {
-						capture: false,
-						passive: passiveMode
-					};
+			_checkAlignment = function(evt) {
+				if (!dragEl || !dragEl.parentNode) return;
+				dragEl.parentNode[expando] && dragEl.parentNode[expando]._computeIsAligned(evt);
+			},
+
+			_isTrueParentSortable = function(el, target) {
+				var trueParent = target;
+				while (!trueParent[expando]) {
+					trueParent = trueParent.parentNode;
 				}
-			}));
-		} catch (err) {}
+
+				return el === trueParent;
+			},
+
+			_artificalBubble = function(sortable, originalEvt, method) {
+				// Artificial IE bubbling
+				var nextParent = sortable.parentNode;
+				while (nextParent && !nextParent[expando]) {
+					nextParent = nextParent.parentNode;
+				}
+
+				if (nextParent) {
+					nextParent[expando][method](_extend(originalEvt, {
+						artificialBubble: true
+					}));
+				}
+			},
+
+			_hideGhostForTarget = function() {
+				if (!supportCssPointerEvents && ghostEl) {
+					_css(ghostEl, 'display', 'none');
+				}
+			},
+
+			_unhideGhostForTarget = function() {
+				if (!supportCssPointerEvents && ghostEl) {
+					_css(ghostEl, 'display', '');
+				}
+			};
+
+
+		// #1184 fix - Prevent click event on fallback if dragged but item not changed position
+		document.addEventListener('click', function(evt) {
+			if (ignoreNextClick) {
+				evt.preventDefault();
+				evt.stopPropagation && evt.stopPropagation();
+				evt.stopImmediatePropagation && evt.stopImmediatePropagation();
+				ignoreNextClick = false;
+				return false;
+			}
+		}, true);
+
+		var nearestEmptyInsertDetectEvent = function(evt) {
+			evt = evt.touches ? evt.touches[0] : evt;
+			if (dragEl) {
+				var nearest = _detectNearestEmptySortable(evt.clientX, evt.clientY);
+
+				if (nearest) {
+					nearest[expando]._onDragOver({
+						clientX: evt.clientX,
+						clientY: evt.clientY,
+						target: nearest,
+						rootEl: nearest
+					});
+				}
+			}
+		};
+		// We do not want this to be triggered if completed (bubbling canceled), so only define it here
+		_on(document, 'dragover', nearestEmptyInsertDetectEvent);
+		_on(document, 'mousemove', nearestEmptyInsertDetectEvent);
+		_on(document, 'touchmove', nearestEmptyInsertDetectEvent);
 
 		/**
 		 * @class  Sortable
@@ -2808,7 +3246,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		 */
 		function Sortable(el, options) {
 			if (!(el && el.nodeType && el.nodeType === 1)) {
-				throw 'Sortable: `el` must be HTMLElement, and not ' + {}.toString.call(el);
+				throw 'Sortable: `el` must be HTMLElement, not ' + {}.toString.call(el);
 			}
 
 			this.el = el; // root element
@@ -2820,7 +3258,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 			// Default options
 			var defaults = {
-				group: Math.random(),
+				group: null,
 				sort: true,
 				disabled: false,
 				store: null,
@@ -2828,7 +3266,15 @@ return /******/ (function(modules) { // webpackBootstrap
 				scroll: true,
 				scrollSensitivity: 30,
 				scrollSpeed: 10,
-				draggable: /[uo]l/i.test(el.nodeName) ? 'li' : '>*',
+				bubbleScroll: true,
+				draggable: /[uo]l/i.test(el.nodeName) ? '>li' : '>*',
+				swapThreshold: 1, // percentage; 0 <= x <= 1
+				invertSwap: false, // invert always
+				invertedSwapThreshold: null, // will be set to same as swapThreshold if default
+				removeCloneOnHide: true,
+				direction: function() {
+					return _detectDirection(el, this.options);
+				},
 				ghostClass: 'sortable-ghost',
 				chosenClass: 'sortable-chosen',
 				dragClass: 'sortable-drag',
@@ -2836,6 +3282,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				filter: null,
 				preventOnFilter: true,
 				animation: 0,
+				easing: null,
 				setData: function (dataTransfer, dragEl) {
 					dataTransfer.setData('Text', dragEl.textContent);
 				},
@@ -2843,12 +3290,17 @@ return /******/ (function(modules) { // webpackBootstrap
 				dragoverBubble: false,
 				dataIdAttr: 'data-id',
 				delay: 0,
+				touchStartThreshold: parseInt(window.devicePixelRatio, 10) || 1,
 				forceFallback: false,
 				fallbackClass: 'sortable-fallback',
 				fallbackOnBody: false,
 				fallbackTolerance: 0,
 				fallbackOffset: {x: 0, y: 0},
-				supportPointer: Sortable.supportPointer !== false
+				supportPointer: Sortable.supportPointer !== false && (
+					('PointerEvent' in window) ||
+					window.navigator && ('msPointerEnabled' in window.navigator) // microsoft
+				),
+				emptyInsertThreshold: 5
 			};
 
 
@@ -2870,26 +3322,67 @@ return /******/ (function(modules) { // webpackBootstrap
 			this.nativeDraggable = options.forceFallback ? false : supportDraggable;
 
 			// Bind events
-			_on(el, 'mousedown', this._onTapStart);
-			_on(el, 'touchstart', this._onTapStart);
-			options.supportPointer && _on(el, 'pointerdown', this._onTapStart);
+			if (options.supportPointer) {
+				_on(el, 'pointerdown', this._onTapStart);
+			} else {
+				_on(el, 'mousedown', this._onTapStart);
+				_on(el, 'touchstart', this._onTapStart);
+			}
 
 			if (this.nativeDraggable) {
 				_on(el, 'dragover', this);
 				_on(el, 'dragenter', this);
 			}
 
-			touchDragOverListeners.push(this._onDragOver);
+			sortables.push(this.el);
 
 			// Restore sorting
-			options.store && this.sort(options.store.get(this));
+			options.store && options.store.get && this.sort(options.store.get(this) || []);
 		}
-
 
 		Sortable.prototype = /** @lends Sortable.prototype */ {
 			constructor: Sortable,
 
+			_computeIsAligned: function(evt) {
+				var target;
+
+				if (ghostEl && !supportCssPointerEvents) {
+					_hideGhostForTarget();
+					target = document.elementFromPoint(evt.clientX, evt.clientY);
+					_unhideGhostForTarget();
+				} else {
+					target = evt.target;
+				}
+
+				target = _closest(target, this.options.draggable, this.el, false);
+				if (_alignedSilent) return;
+				if (!dragEl || dragEl.parentNode !== this.el) return;
+
+				var children = this.el.children;
+				for (var i = 0; i < children.length; i++) {
+					// Don't change for target in case it is changed to aligned before onDragOver is fired
+					if (_closest(children[i], this.options.draggable, this.el, false) && children[i] !== target) {
+						children[i].sortableMouseAligned = _isClientInRowColumn(evt.clientX, evt.clientY, children[i], this._getDirection(evt, null), this.options);
+					}
+				}
+				// Used for nulling last target when not in element, nothing to do with checking if aligned
+				if (!_closest(target, this.options.draggable, this.el, true)) {
+					lastTarget = null;
+				}
+
+				_alignedSilent = true;
+				setTimeout(function() {
+					_alignedSilent = false;
+				}, 30);
+
+			},
+
+			_getDirection: function(evt, target) {
+				return (typeof this.options.direction === 'function') ? this.options.direction.call(this, evt, target, dragEl) : this.options.direction;
+			},
+
 			_onTapStart: function (/** Event|TouchEvent */evt) {
+				if (!evt.cancelable) return;
 				var _this = this,
 					el = this.el,
 					options = this.options,
@@ -2897,12 +3390,18 @@ return /******/ (function(modules) { // webpackBootstrap
 					type = evt.type,
 					touch = evt.touches && evt.touches[0],
 					target = (touch || evt).target,
-					originalTarget = evt.target.shadowRoot && (evt.path && evt.path[0]) || target,
+					originalTarget = evt.target.shadowRoot && ((evt.path && evt.path[0]) || (evt.composedPath && evt.composedPath()[0])) || target,
 					filter = options.filter,
 					startIndex;
 
 				_saveInputCheckedState(el);
 
+
+				// IE: Calls events in capture mode if event element is nested. This ensures only correct element's _onTapStart goes through.
+				// This process is also done in _onDragOver
+				if (IE11OrLess && !evt.artificialBubble && !_isTrueParentSortable(el, target)) {
+					return;
+				}
 
 				// Don't trigger start event when an element is been dragged, otherwise the evt.oldindex always wrong when set option.group.
 				if (dragEl) {
@@ -2910,7 +3409,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				}
 
 				if (/mousedown|pointerdown/.test(type) && evt.button !== 0 || options.disabled) {
-					return; // only left button or enabled
+					return; // only left button and enabled
 				}
 
 				// cancel dnd if original target is content editable
@@ -2918,9 +3417,12 @@ return /******/ (function(modules) { // webpackBootstrap
 					return;
 				}
 
-				target = _closest(target, options.draggable, el);
+				target = _closest(target, options.draggable, el, false);
 
 				if (!target) {
+					if (IE11OrLess) {
+						_artificalBubble(el, evt, '_onTapStart');
+					}
 					return;
 				}
 
@@ -2936,13 +3438,13 @@ return /******/ (function(modules) { // webpackBootstrap
 				if (typeof filter === 'function') {
 					if (filter.call(this, evt, target, this)) {
 						_dispatchEvent(_this, originalTarget, 'filter', target, el, el, startIndex);
-						preventOnFilter && evt.preventDefault();
+						preventOnFilter && evt.cancelable && evt.preventDefault();
 						return; // cancel dnd
 					}
 				}
 				else if (filter) {
 					filter = filter.split(',').some(function (criteria) {
-						criteria = _closest(originalTarget, criteria.trim(), el);
+						criteria = _closest(originalTarget, criteria.trim(), el, false);
 
 						if (criteria) {
 							_dispatchEvent(_this, criteria, 'filter', target, el, el, startIndex);
@@ -2951,17 +3453,69 @@ return /******/ (function(modules) { // webpackBootstrap
 					});
 
 					if (filter) {
-						preventOnFilter && evt.preventDefault();
+						preventOnFilter && evt.cancelable && evt.preventDefault();
 						return; // cancel dnd
 					}
 				}
 
-				if (options.handle && !_closest(originalTarget, options.handle, el)) {
+				if (options.handle && !_closest(originalTarget, options.handle, el, false)) {
 					return;
 				}
 
 				// Prepare `dragstart`
 				this._prepareDragStart(evt, touch, target, startIndex);
+			},
+
+
+			_handleAutoScroll: function(evt, fallback) {
+				if (!dragEl || !this.options.scroll) return;
+				var x = evt.clientX,
+					y = evt.clientY,
+
+					elem = document.elementFromPoint(x, y),
+					_this = this;
+
+				// IE does not seem to have native autoscroll,
+				// Edge's autoscroll seems too conditional,
+				// Firefox and Chrome are good
+				if (fallback || Edge || IE11OrLess) {
+					_autoScroll(evt, _this.options, elem, fallback);
+
+					// Listener for pointer element change
+					var ogElemScroller = _getParentAutoScrollElement(elem, true);
+					if (
+						scrolling &&
+						(
+							!pointerElemChangedInterval ||
+							x !== lastPointerElemX ||
+							y !== lastPointerElemY
+						)
+					) {
+
+						pointerElemChangedInterval && clearInterval(pointerElemChangedInterval);
+						// Detect for pointer elem change, emulating native DnD behaviour
+						pointerElemChangedInterval = setInterval(function() {
+							if (!dragEl) return;
+							// could also check if scroll direction on newElem changes due to parent autoscrolling
+							var newElem = _getParentAutoScrollElement(document.elementFromPoint(x, y), true);
+							if (newElem !== ogElemScroller) {
+								ogElemScroller = newElem;
+								_clearAutoScrolls();
+								_autoScroll(evt, _this.options, ogElemScroller, fallback);
+							}
+						}, 10);
+						lastPointerElemX = x;
+						lastPointerElemY = y;
+					}
+
+				} else {
+					// if DnD is enabled (and browser has good autoscrolling), first autoscroll will already scroll, so get parent autoscroll of first autoscroll
+					if (!_this.options.bubbleScroll || _getParentAutoScrollElement(elem, true) === window) {
+						_clearAutoScrolls();
+						return;
+					}
+					_autoScroll(evt, _this.options, _getParentAutoScrollElement(elem, false), false);
+				}
 			},
 
 			_prepareDragStart: function (/** Event */evt, /** Touch */touch, /** HTMLElement */target, /** Number */startIndex) {
@@ -2972,8 +3526,6 @@ return /******/ (function(modules) { // webpackBootstrap
 					dragStartFn;
 
 				if (target && !dragEl && (target.parentNode === el)) {
-					tapEvt = evt;
-
 					rootEl = el;
 					dragEl = target;
 					parentEl = dragEl.parentNode;
@@ -2982,10 +3534,19 @@ return /******/ (function(modules) { // webpackBootstrap
 					activeGroup = options.group;
 					oldIndex = startIndex;
 
+					tapEvt = {
+						target: dragEl,
+						clientX: (touch || evt).clientX,
+						clientY: (touch || evt).clientY
+					};
+
 					this._lastX = (touch || evt).clientX;
 					this._lastY = (touch || evt).clientY;
 
 					dragEl.style['will-change'] = 'all';
+					// undo animation if needed
+					dragEl.style.transition = '';
+					dragEl.style.transform = '';
 
 					dragStartFn = function () {
 						// Delayed drag has been triggered
@@ -2995,14 +3556,14 @@ return /******/ (function(modules) { // webpackBootstrap
 						// Make the element draggable
 						dragEl.draggable = _this.nativeDraggable;
 
-						// Chosen item
-						_toggleClass(dragEl, options.chosenClass, true);
-
 						// Bind the events: dragstart/dragend
 						_this._triggerDragStart(evt, touch);
 
 						// Drag start event
 						_dispatchEvent(_this, rootEl, 'choose', dragEl, rootEl, rootEl, oldIndex);
+
+						// Chosen item
+						_toggleClass(dragEl, options.chosenClass, true);
 					};
 
 					// Disable "draggable"
@@ -3010,11 +3571,13 @@ return /******/ (function(modules) { // webpackBootstrap
 						_find(dragEl, criteria.trim(), _disableDraggable);
 					});
 
-					_on(ownerDocument, 'mouseup', _this._onDrop);
-					_on(ownerDocument, 'touchend', _this._onDrop);
-					_on(ownerDocument, 'touchcancel', _this._onDrop);
-					_on(ownerDocument, 'selectstart', _this);
-					options.supportPointer && _on(ownerDocument, 'pointercancel', _this._onDrop);
+					if (options.supportPointer) {
+						_on(ownerDocument, 'pointerup', _this._onDrop);
+					} else {
+						_on(ownerDocument, 'mouseup', _this._onDrop);
+						_on(ownerDocument, 'touchend', _this._onDrop);
+						_on(ownerDocument, 'touchcancel', _this._onDrop);
+					}
 
 					if (options.delay) {
 						// If the user moves the pointer or let go the click or touch
@@ -3023,16 +3586,23 @@ return /******/ (function(modules) { // webpackBootstrap
 						_on(ownerDocument, 'mouseup', _this._disableDelayedDrag);
 						_on(ownerDocument, 'touchend', _this._disableDelayedDrag);
 						_on(ownerDocument, 'touchcancel', _this._disableDelayedDrag);
-						_on(ownerDocument, 'mousemove', _this._disableDelayedDrag);
-						_on(ownerDocument, 'touchmove', _this._disableDelayedDrag);
-						options.supportPointer && _on(ownerDocument, 'pointermove', _this._disableDelayedDrag);
+						_on(ownerDocument, 'mousemove', _this._delayedDragTouchMoveHandler);
+						_on(ownerDocument, 'touchmove', _this._delayedDragTouchMoveHandler);
+						options.supportPointer && _on(ownerDocument, 'pointermove', _this._delayedDragTouchMoveHandler);
 
 						_this._dragStartTimer = setTimeout(dragStartFn, options.delay);
 					} else {
 						dragStartFn();
 					}
+				}
+			},
 
-
+			_delayedDragTouchMoveHandler: function (/** TouchEvent|PointerEvent **/e) {
+				var touch = e.touches ? e.touches[0] : e;
+				if (min(abs(touch.clientX - this._lastX), abs(touch.clientY - this._lastY))
+						>= this.options.touchStartThreshold
+				) {
+					this._disableDelayedDrag();
 				}
 			},
 
@@ -3043,28 +3613,23 @@ return /******/ (function(modules) { // webpackBootstrap
 				_off(ownerDocument, 'mouseup', this._disableDelayedDrag);
 				_off(ownerDocument, 'touchend', this._disableDelayedDrag);
 				_off(ownerDocument, 'touchcancel', this._disableDelayedDrag);
-				_off(ownerDocument, 'mousemove', this._disableDelayedDrag);
-				_off(ownerDocument, 'touchmove', this._disableDelayedDrag);
-				_off(ownerDocument, 'pointermove', this._disableDelayedDrag);
+				_off(ownerDocument, 'mousemove', this._delayedDragTouchMoveHandler);
+				_off(ownerDocument, 'touchmove', this._delayedDragTouchMoveHandler);
+				_off(ownerDocument, 'pointermove', this._delayedDragTouchMoveHandler);
 			},
 
 			_triggerDragStart: function (/** Event */evt, /** Touch */touch) {
 				touch = touch || (evt.pointerType == 'touch' ? evt : null);
 
-				if (touch) {
-					// Touch device support
-					tapEvt = {
-						target: dragEl,
-						clientX: touch.clientX,
-						clientY: touch.clientY
-					};
-
-					this._onDragStart(tapEvt, 'touch');
-				}
-				else if (!this.nativeDraggable) {
-					this._onDragStart(tapEvt, true);
-				}
-				else {
+				if (!this.nativeDraggable || touch) {
+					if (this.options.supportPointer) {
+						_on(document, 'pointermove', this._onTouchMove);
+					} else if (touch) {
+						_on(document, 'touchmove', this._onTouchMove);
+					} else {
+						_on(document, 'mousemove', this._onTouchMove);
+					}
+				} else {
 					_on(dragEl, 'dragend', this);
 					_on(rootEl, 'dragstart', this._onDragStart);
 				}
@@ -3082,15 +3647,25 @@ return /******/ (function(modules) { // webpackBootstrap
 				}
 			},
 
-			_dragStarted: function () {
+			_dragStarted: function (fallback) {
+				awaitingDragStarted = false;
 				if (rootEl && dragEl) {
+					if (this.nativeDraggable) {
+						_on(document, 'dragover', this._handleAutoScroll);
+						_on(document, 'dragover', _checkAlignment);
+					}
 					var options = this.options;
 
 					// Apply effect
+					!fallback && _toggleClass(dragEl, options.dragClass, false);
 					_toggleClass(dragEl, options.ghostClass, true);
-					_toggleClass(dragEl, options.dragClass, false);
+
+					// In case dragging an animated element
+					_css(dragEl, 'transform', '');
 
 					Sortable.active = this;
+
+					fallback && this._appendGhost();
 
 					// Drag start event
 					_dispatchEvent(this, rootEl, 'start', dragEl, rootEl, rootEl, oldIndex);
@@ -3099,24 +3674,20 @@ return /******/ (function(modules) { // webpackBootstrap
 				}
 			},
 
-			_emulateDragOver: function () {
+			_emulateDragOver: function (bypassLastTouchCheck) {
 				if (touchEvt) {
-					if (this._lastX === touchEvt.clientX && this._lastY === touchEvt.clientY) {
+					if (this._lastX === touchEvt.clientX && this._lastY === touchEvt.clientY && !bypassLastTouchCheck) {
 						return;
 					}
-
 					this._lastX = touchEvt.clientX;
 					this._lastY = touchEvt.clientY;
 
-					if (!supportCssPointerEvents) {
-						_css(ghostEl, 'display', 'none');
-					}
+					_hideGhostForTarget();
 
 					var target = document.elementFromPoint(touchEvt.clientX, touchEvt.clientY);
 					var parent = target;
-					var i = touchDragOverListeners.length;
 
-					if (target && target.shadowRoot) {
+					while (target && target.shadowRoot) {
 						target = target.shadowRoot.elementFromPoint(touchEvt.clientX, touchEvt.clientY);
 						parent = target;
 					}
@@ -3124,16 +3695,18 @@ return /******/ (function(modules) { // webpackBootstrap
 					if (parent) {
 						do {
 							if (parent[expando]) {
-								while (i--) {
-									touchDragOverListeners[i]({
-										clientX: touchEvt.clientX,
-										clientY: touchEvt.clientY,
-										target: target,
-										rootEl: parent
-									});
-								}
+								var inserted;
 
-								break;
+								inserted = parent[expando]._onDragOver({
+									clientX: touchEvt.clientX,
+									clientY: touchEvt.clientY,
+									target: target,
+									rootEl: parent
+								});
+
+								if (inserted && !this.options.dragoverBubble) {
+									break;
+								}
 							}
 
 							target = parent; // store last element
@@ -3141,10 +3714,9 @@ return /******/ (function(modules) { // webpackBootstrap
 						/* jshint boss:true */
 						while (parent = parent.parentNode);
 					}
+					dragEl.parentNode[expando]._computeIsAligned(touchEvt);
 
-					if (!supportCssPointerEvents) {
-						_css(ghostEl, 'display', '');
-					}
+					_unhideGhostForTarget();
 				}
 			},
 
@@ -3155,42 +3727,45 @@ return /******/ (function(modules) { // webpackBootstrap
 						fallbackTolerance = options.fallbackTolerance,
 						fallbackOffset = options.fallbackOffset,
 						touch = evt.touches ? evt.touches[0] : evt,
-						dx = (touch.clientX - tapEvt.clientX) + fallbackOffset.x,
-						dy = (touch.clientY - tapEvt.clientY) + fallbackOffset.y,
+						matrix = ghostEl && _matrix(ghostEl),
+						scaleX = ghostEl && matrix && matrix.a,
+						scaleY = ghostEl && matrix && matrix.d,
+						dx = ((touch.clientX - tapEvt.clientX) + fallbackOffset.x) / (scaleX ? scaleX : 1),
+						dy = ((touch.clientY - tapEvt.clientY) + fallbackOffset.y) / (scaleY ? scaleY : 1),
 						translate3d = evt.touches ? 'translate3d(' + dx + 'px,' + dy + 'px,0)' : 'translate(' + dx + 'px,' + dy + 'px)';
 
+
 					// only set the status to dragging, when we are actually dragging
-					if (!Sortable.active) {
+					if (!Sortable.active && !awaitingDragStarted) {
 						if (fallbackTolerance &&
 							min(abs(touch.clientX - this._lastX), abs(touch.clientY - this._lastY)) < fallbackTolerance
 						) {
 							return;
 						}
-
-						this._dragStarted();
+						this._onDragStart(evt, true);
 					}
 
-					// as well as creating the ghost element on the document body
-					this._appendGhost();
+					this._handleAutoScroll(touch, true);
+
 
 					moved = true;
 					touchEvt = touch;
+
 
 					_css(ghostEl, 'webkitTransform', translate3d);
 					_css(ghostEl, 'mozTransform', translate3d);
 					_css(ghostEl, 'msTransform', translate3d);
 					_css(ghostEl, 'transform', translate3d);
 
-					evt.preventDefault();
+					evt.cancelable && evt.preventDefault();
 				}
 			},
 
 			_appendGhost: function () {
 				if (!ghostEl) {
-					var rect = dragEl.getBoundingClientRect(),
+					var rect = _getRect(dragEl, this.options.fallbackOnBody ? document.body : rootEl, true),
 						css = _css(dragEl),
-						options = this.options,
-						ghostRect;
+						options = this.options;
 
 					ghostEl = dragEl.cloneNode(true);
 
@@ -3198,8 +3773,10 @@ return /******/ (function(modules) { // webpackBootstrap
 					_toggleClass(ghostEl, options.fallbackClass, true);
 					_toggleClass(ghostEl, options.dragClass, true);
 
-					_css(ghostEl, 'top', rect.top - parseInt(css.marginTop, 10));
-					_css(ghostEl, 'left', rect.left - parseInt(css.marginLeft, 10));
+					_css(ghostEl, 'box-sizing', 'border-box');
+					_css(ghostEl, 'margin', 0);
+					_css(ghostEl, 'top', rect.top);
+					_css(ghostEl, 'left', rect.left);
 					_css(ghostEl, 'width', rect.width);
 					_css(ghostEl, 'height', rect.height);
 					_css(ghostEl, 'opacity', '0.8');
@@ -3208,59 +3785,46 @@ return /******/ (function(modules) { // webpackBootstrap
 					_css(ghostEl, 'pointerEvents', 'none');
 
 					options.fallbackOnBody && document.body.appendChild(ghostEl) || rootEl.appendChild(ghostEl);
-
-					// Fixing dimensions.
-					ghostRect = ghostEl.getBoundingClientRect();
-					_css(ghostEl, 'width', rect.width * 2 - ghostRect.width);
-					_css(ghostEl, 'height', rect.height * 2 - ghostRect.height);
 				}
 			},
 
-			_onDragStart: function (/**Event*/evt, /**boolean*/useFallback) {
+			_onDragStart: function (/**Event*/evt, /**boolean*/fallback) {
 				var _this = this;
 				var dataTransfer = evt.dataTransfer;
 				var options = _this.options;
 
-				_this._offUpEvents();
+				// Setup clone
+				cloneEl = _clone(dragEl);
 
-				if (activeGroup.checkPull(_this, _this, dragEl, evt)) {
-					cloneEl = _clone(dragEl);
+				cloneEl.draggable = false;
+				cloneEl.style['will-change'] = '';
 
-					cloneEl.draggable = false;
-					cloneEl.style['will-change'] = '';
+				this._hideClone();
 
-					_css(cloneEl, 'display', 'none');
-					_toggleClass(cloneEl, _this.options.chosenClass, false);
+				_toggleClass(cloneEl, _this.options.chosenClass, false);
 
-					// #1143: IFrame support workaround
-					_this._cloneId = _nextTick(function () {
+
+				// #1143: IFrame support workaround
+				_this._cloneId = _nextTick(function () {
+					if (!_this.options.removeCloneOnHide) {
 						rootEl.insertBefore(cloneEl, dragEl);
-						_dispatchEvent(_this, rootEl, 'clone', dragEl);
-					});
-				}
-
-				_toggleClass(dragEl, options.dragClass, true);
-
-				if (useFallback) {
-					if (useFallback === 'touch') {
-						// Bind touch events
-						_on(document, 'touchmove', _this._onTouchMove);
-						_on(document, 'touchend', _this._onDrop);
-						_on(document, 'touchcancel', _this._onDrop);
-
-						if (options.supportPointer) {
-							_on(document, 'pointermove', _this._onTouchMove);
-							_on(document, 'pointerup', _this._onDrop);
-						}
-					} else {
-						// Old brwoser
-						_on(document, 'mousemove', _this._onTouchMove);
-						_on(document, 'mouseup', _this._onDrop);
 					}
+					_dispatchEvent(_this, rootEl, 'clone', dragEl);
+				});
 
+
+				!fallback && _toggleClass(dragEl, options.dragClass, true);
+
+				// Set proper drop events
+				if (fallback) {
+					ignoreNextClick = true;
 					_this._loopId = setInterval(_this._emulateDragOver, 50);
-				}
-				else {
+				} else {
+					// Undo what was set in _prepareDragStart before drag started
+					_off(document, 'mouseup', _this._onDrop);
+					_off(document, 'touchend', _this._onDrop);
+					_off(document, 'touchcancel', _this._onDrop);
+
 					if (dataTransfer) {
 						dataTransfer.effectAllowed = 'move';
 						options.setData && options.setData.call(_this, dataTransfer, dragEl);
@@ -3268,18 +3832,20 @@ return /******/ (function(modules) { // webpackBootstrap
 
 					_on(document, 'drop', _this);
 
-					// #1143: Бывает элемент с IFrame внутри блокирует `drop`,
-					// поэтому если вызвался `mouseover`, значит надо отменять весь d'n'd.
-					// Breaking Chrome 62+
-					// _on(document, 'mouseover', _this);
-
-					_this._dragStartId = _nextTick(_this._dragStarted);
+					// #1276 fix:
+					_css(dragEl, 'transform', 'translateZ(0)');
 				}
+
+				awaitingDragStarted = true;
+
+				_this._dragStartId = _nextTick(_this._dragStarted.bind(_this, fallback));
+				_on(document, 'selectstart', _this);
 			},
 
+			// Returns true - if no further action is needed (either inserted or another condition)
 			_onDragOver: function (/**Event*/evt) {
 				var el = this.el,
-					target,
+					target = evt.target,
 					dragRect,
 					targetRect,
 					revert,
@@ -3287,19 +3853,69 @@ return /******/ (function(modules) { // webpackBootstrap
 					group = options.group,
 					activeSortable = Sortable.active,
 					isOwner = (activeGroup === group),
-					isMovingBetweenSortable = false,
-					canSort = options.sort;
+					canSort = options.sort,
+					_this = this;
 
-				if (evt.preventDefault !== void 0) {
-					evt.preventDefault();
-					!options.dragoverBubble && evt.stopPropagation();
-				}
+				if (_silent) return;
 
-				if (dragEl.animated) {
+				// IE event order fix
+				if (IE11OrLess && !evt.rootEl && !evt.artificialBubble && !_isTrueParentSortable(el, target)) {
 					return;
 				}
 
+				// Return invocation when no further action is needed in another sortable
+				function completed() {
+					if (activeSortable) {
+						// Set ghost class to new sortable's ghost class
+						_toggleClass(dragEl, putSortable ? putSortable.options.ghostClass : activeSortable.options.ghostClass, false);
+						_toggleClass(dragEl, options.ghostClass, true);
+					}
+
+					if (putSortable !== _this && _this !== Sortable.active) {
+						putSortable = _this;
+					} else if (_this === Sortable.active) {
+						putSortable = null;
+					}
+
+
+					// Null lastTarget if it is not inside a previously swapped element
+					if ((target === dragEl && !dragEl.animated) || (target === el && !target.animated)) {
+						lastTarget = null;
+					}
+					// no bubbling and not fallback
+					if (!options.dragoverBubble && !evt.rootEl && target !== document) {
+						_this._handleAutoScroll(evt);
+						dragEl.parentNode[expando]._computeIsAligned(evt);
+					}
+
+					!options.dragoverBubble && evt.stopPropagation && evt.stopPropagation();
+
+					return true;
+				}
+
+				// Call when dragEl has been inserted
+				function changed() {
+					_dispatchEvent(_this, rootEl, 'change', target, el, rootEl, oldIndex, _index(dragEl, options.draggable), evt);
+				}
+
+
+				if (evt.preventDefault !== void 0) {
+					evt.cancelable && evt.preventDefault();
+				}
+
+
 				moved = true;
+
+				target = _closest(target, options.draggable, el, true);
+
+				// target is dragEl or target is animated
+				if (!!_closest(evt.target, null, dragEl, true) || target.animated) {
+					return completed();
+				}
+
+				if (target !== dragEl) {
+					ignoreNextClick = false;
+				}
 
 				if (activeSortable && !options.disabled &&
 					(isOwner
@@ -3307,106 +3923,110 @@ return /******/ (function(modules) { // webpackBootstrap
 						: (
 							putSortable === this ||
 							(
-								(activeSortable.lastPullMode = activeGroup.checkPull(this, activeSortable, dragEl, evt)) &&
+								(this.lastPutMode = activeGroup.checkPull(this, activeSortable, dragEl, evt)) &&
 								group.checkPut(this, activeSortable, dragEl, evt)
 							)
 						)
-					) &&
-					(evt.rootEl === void 0 || evt.rootEl === this.el) // touch fallback
+					)
 				) {
-					// Smart auto-scrolling
-					_autoScroll(evt, options, this.el);
+					var axis = this._getDirection(evt, target);
 
-					if (_silent) {
-						return;
-					}
-
-					target = _closest(evt.target, options.draggable, el);
-					dragRect = dragEl.getBoundingClientRect();
-
-					if (putSortable !== this) {
-						putSortable = this;
-						isMovingBetweenSortable = true;
-					}
+					dragRect = _getRect(dragEl);
 
 					if (revert) {
-						_cloneHide(activeSortable, true);
+						this._hideClone();
 						parentEl = rootEl; // actualization
 
-						if (cloneEl || nextEl) {
-							rootEl.insertBefore(dragEl, cloneEl || nextEl);
-						}
-						else if (!canSort) {
+						if (nextEl) {
+							rootEl.insertBefore(dragEl, nextEl);
+						} else {
 							rootEl.appendChild(dragEl);
 						}
 
-						return;
+						return completed();
 					}
 
-
 					if ((el.children.length === 0) || (el.children[0] === ghostEl) ||
-						(el === evt.target) && (_ghostIsLast(el, evt))
+						_ghostIsLast(evt, axis, el) && !dragEl.animated
 					) {
 						//assign target only if condition is true
 						if (el.children.length !== 0 && el.children[0] !== ghostEl && el === evt.target) {
-							target = el.lastElementChild;
+							target = _lastChild(el);
 						}
 
 						if (target) {
-							if (target.animated) {
-								return;
-							}
-
-							targetRect = target.getBoundingClientRect();
+							targetRect = _getRect(target);
 						}
 
-						_cloneHide(activeSortable, isOwner);
+						if (isOwner) {
+							activeSortable._hideClone();
+						} else {
+							activeSortable._showClone(this);
+						}
 
-						if (_onMove(rootEl, el, dragEl, dragRect, target, targetRect, evt) !== false) {
-							if (!dragEl.contains(el)) {
-								el.appendChild(dragEl);
-								parentEl = el; // actualization
-							}
+						if (_onMove(rootEl, el, dragEl, dragRect, target, targetRect, evt, !!target) !== false) {
+							el.appendChild(dragEl);
+							parentEl = el; // actualization
+							realDragElRect = null;
 
+							changed();
 							this._animate(dragRect, dragEl);
 							target && this._animate(targetRect, target);
+							return completed();
 						}
 					}
-					else if (target && !target.animated && target !== dragEl && (target.parentNode[expando] !== void 0)) {
-						if (lastEl !== target) {
-							lastEl = target;
-							lastCSS = _css(target);
-							lastParentCSS = _css(target.parentNode);
+					else if (target && target !== dragEl && target.parentNode === el) {
+						var direction = 0,
+							targetBeforeFirstSwap,
+							aligned = target.sortableMouseAligned,
+							differentLevel = dragEl.parentNode !== el,
+							scrolledPastTop = _isScrolledPast(target, axis === 'vertical' ? 'top' : 'left');
+
+						if (lastTarget !== target) {
+							lastMode = null;
+							targetBeforeFirstSwap = _getRect(target)[axis === 'vertical' ? 'top' : 'left'];
+							pastFirstInvertThresh = false;
 						}
 
-						targetRect = target.getBoundingClientRect();
-
-						var width = targetRect.right - targetRect.left,
-							height = targetRect.bottom - targetRect.top,
-							floating = R_FLOAT.test(lastCSS.cssFloat + lastCSS.display)
-								|| (lastParentCSS.display == 'flex' && lastParentCSS['flex-direction'].indexOf('row') === 0),
-							isWide = (target.offsetWidth > dragEl.offsetWidth),
-							isLong = (target.offsetHeight > dragEl.offsetHeight),
-							halfway = (floating ? (evt.clientX - targetRect.left) / width : (evt.clientY - targetRect.top) / height) > 0.5,
-							nextSibling = target.nextElementSibling,
-							after = false
-						;
-
-						if (floating) {
-							var elTop = dragEl.offsetTop,
-								tgTop = target.offsetTop;
-
-							if (elTop === tgTop) {
-								after = (target.previousElementSibling === dragEl) && !isWide || halfway && isWide;
+						// Reference: https://www.lucidchart.com/documents/view/10fa0e93-e362-4126-aca2-b709ee56bd8b/0
+						if (
+							_isElInRowColumn(dragEl, target, axis) && aligned ||
+							differentLevel ||
+							scrolledPastTop ||
+							options.invertSwap ||
+							lastMode === 'insert' ||
+							// Needed, in the case that we are inside target and inserted because not aligned... aligned will stay false while inside
+							// and lastMode will change to 'insert', but we must swap
+							lastMode === 'swap'
+						) {
+							// New target that we will be inside
+							if (lastMode !== 'swap') {
+								isCircumstantialInvert = options.invertSwap || differentLevel || scrolling || scrolledPastTop;
 							}
-							else if (target.previousElementSibling === dragEl || dragEl.previousElementSibling === target) {
-								after = (evt.clientY - targetRect.top) / height > 0.5;
-							} else {
-								after = tgTop > elTop;
-							}
-							} else if (!isMovingBetweenSortable) {
-							after = (nextSibling !== dragEl) && !isLong || halfway && isLong;
+
+							direction = _getSwapDirection(evt, target, axis,
+								options.swapThreshold, options.invertedSwapThreshold == null ? options.swapThreshold : options.invertedSwapThreshold,
+								isCircumstantialInvert,
+								lastTarget === target);
+							lastMode = 'swap';
+						} else {
+							// Insert at position
+							direction = _getInsertDirection(target, options);
+							lastMode = 'insert';
 						}
+						if (direction === 0) return completed();
+
+						realDragElRect = null;
+						lastTarget = target;
+
+						lastDirection = direction;
+
+						targetRect = _getRect(target);
+
+						var nextSibling = target.nextElementSibling,
+							after = false;
+
+						after = direction === 1;
 
 						var moveVector = _onMove(rootEl, el, dragEl, dragRect, target, targetRect, evt, after);
 
@@ -3418,47 +4038,78 @@ return /******/ (function(modules) { // webpackBootstrap
 							_silent = true;
 							setTimeout(_unsilent, 30);
 
-							_cloneHide(activeSortable, isOwner);
+							if (isOwner) {
+								activeSortable._hideClone();
+							} else {
+								activeSortable._showClone(this);
+							}
 
-							if (!dragEl.contains(el)) {
-								if (after && !nextSibling) {
-									el.appendChild(dragEl);
-								} else {
-									target.parentNode.insertBefore(dragEl, after ? nextSibling : target);
-								}
+							if (after && !nextSibling) {
+								el.appendChild(dragEl);
+							} else {
+								target.parentNode.insertBefore(dragEl, after ? nextSibling : target);
 							}
 
 							parentEl = dragEl.parentNode; // actualization
 
+							// must be done before animation
+							if (targetBeforeFirstSwap !== undefined && !isCircumstantialInvert) {
+								targetMoveDistance = abs(targetBeforeFirstSwap - _getRect(target)[axis === 'vertical' ? 'top' : 'left']);
+							}
+							changed();
+							!differentLevel && this._animate(targetRect, target);
 							this._animate(dragRect, dragEl);
-							this._animate(targetRect, target);
+
+							return completed();
 						}
 					}
+
+					if (el.contains(dragEl)) {
+						return completed();
+					}
 				}
+
+				if (IE11OrLess && !evt.rootEl) {
+					_artificalBubble(el, evt, '_onDragOver');
+				}
+
+				return false;
 			},
 
 			_animate: function (prevRect, target) {
 				var ms = this.options.animation;
 
 				if (ms) {
-					var currentRect = target.getBoundingClientRect();
+					var currentRect = _getRect(target);
 
-					if (prevRect.nodeType === 1) {
-						prevRect = prevRect.getBoundingClientRect();
+					if (target === dragEl) {
+						realDragElRect = currentRect;
 					}
 
-					_css(target, 'transition', 'none');
-					_css(target, 'transform', 'translate3d('
-						+ (prevRect.left - currentRect.left) + 'px,'
-						+ (prevRect.top - currentRect.top) + 'px,0)'
-					);
+					if (prevRect.nodeType === 1) {
+						prevRect = _getRect(prevRect);
+					}
 
-					target.offsetWidth; // repaint
+					// Check if actually moving position
+					if ((prevRect.left + prevRect.width / 2) !== (currentRect.left + currentRect.width / 2)
+						|| (prevRect.top + prevRect.height / 2) !== (currentRect.top + currentRect.height / 2)
+					) {
+						var matrix = _matrix(this.el),
+							scaleX = matrix && matrix.a,
+							scaleY = matrix && matrix.d;
 
-					_css(target, 'transition', 'all ' + ms + 'ms');
-					_css(target, 'transform', 'translate3d(0,0,0)');
+						_css(target, 'transition', 'none');
+						_css(target, 'transform', 'translate3d('
+							+ (prevRect.left - currentRect.left) / (scaleX ? scaleX : 1) + 'px,'
+							+ (prevRect.top - currentRect.top) / (scaleY ? scaleY : 1) + 'px,0)'
+						);
 
-					clearTimeout(target.animated);
+						forRepaintDummy = target.offsetWidth; // repaint
+						_css(target, 'transition', 'transform ' + ms + 'ms' + (this.options.easing ? ' ' + this.options.easing : ''));
+						_css(target, 'transform', 'translate3d(0,0,0)');
+					}
+
+					(typeof target.animated === 'number') && clearTimeout(target.animated);
 					target.animated = setTimeout(function () {
 						_css(target, 'transition', '');
 						_css(target, 'transform', '');
@@ -3476,41 +4127,50 @@ return /******/ (function(modules) { // webpackBootstrap
 				_off(ownerDocument, 'touchend', this._onDrop);
 				_off(ownerDocument, 'pointerup', this._onDrop);
 				_off(ownerDocument, 'touchcancel', this._onDrop);
-				_off(ownerDocument, 'pointercancel', this._onDrop);
-				_off(ownerDocument, 'selectstart', this);
+				_off(document, 'selectstart', this);
 			},
 
 			_onDrop: function (/**Event*/evt) {
 				var el = this.el,
 					options = this.options;
+				awaitingDragStarted = false;
+				scrolling = false;
+				isCircumstantialInvert = false;
+				pastFirstInvertThresh = false;
 
 				clearInterval(this._loopId);
-				clearInterval(autoScroll.pid);
+
+				clearInterval(pointerElemChangedInterval);
+				_clearAutoScrolls();
+				_cancelThrottle();
+
 				clearTimeout(this._dragStartTimer);
 
 				_cancelNextTick(this._cloneId);
 				_cancelNextTick(this._dragStartId);
 
 				// Unbind events
-				_off(document, 'mouseover', this);
 				_off(document, 'mousemove', this._onTouchMove);
+
 
 				if (this.nativeDraggable) {
 					_off(document, 'drop', this);
 					_off(el, 'dragstart', this._onDragStart);
+					_off(document, 'dragover', this._handleAutoScroll);
+					_off(document, 'dragover', _checkAlignment);
 				}
 
 				this._offUpEvents();
 
 				if (evt) {
 					if (moved) {
-						evt.preventDefault();
+						evt.cancelable && evt.preventDefault();
 						!options.dropBubble && evt.stopPropagation();
 					}
 
 					ghostEl && ghostEl.parentNode && ghostEl.parentNode.removeChild(ghostEl);
 
-					if (rootEl === parentEl || Sortable.active.lastPullMode !== 'clone') {
+					if (rootEl === parentEl || (putSortable && putSortable.lastPutMode !== 'clone')) {
 						// Remove clone
 						cloneEl && cloneEl.parentNode && cloneEl.parentNode.removeChild(cloneEl);
 					}
@@ -3524,26 +4184,28 @@ return /******/ (function(modules) { // webpackBootstrap
 						dragEl.style['will-change'] = '';
 
 						// Remove class's
-						_toggleClass(dragEl, this.options.ghostClass, false);
+						_toggleClass(dragEl, putSortable ? putSortable.options.ghostClass : this.options.ghostClass, false);
 						_toggleClass(dragEl, this.options.chosenClass, false);
 
 						// Drag stop event
-						_dispatchEvent(this, rootEl, 'unchoose', dragEl, parentEl, rootEl, oldIndex);
+						_dispatchEvent(this, rootEl, 'unchoose', dragEl, parentEl, rootEl, oldIndex, null, evt);
 
 						if (rootEl !== parentEl) {
 							newIndex = _index(dragEl, options.draggable);
 
 							if (newIndex >= 0) {
 								// Add event
-								_dispatchEvent(null, parentEl, 'add', dragEl, parentEl, rootEl, oldIndex, newIndex);
+								_dispatchEvent(null, parentEl, 'add', dragEl, parentEl, rootEl, oldIndex, newIndex, evt);
 
 								// Remove event
-								_dispatchEvent(this, rootEl, 'remove', dragEl, parentEl, rootEl, oldIndex, newIndex);
+								_dispatchEvent(this, rootEl, 'remove', dragEl, parentEl, rootEl, oldIndex, newIndex, evt);
 
 								// drag from one list and drop into another
-								_dispatchEvent(null, parentEl, 'sort', dragEl, parentEl, rootEl, oldIndex, newIndex);
-								_dispatchEvent(this, rootEl, 'sort', dragEl, parentEl, rootEl, oldIndex, newIndex);
+								_dispatchEvent(null, parentEl, 'sort', dragEl, parentEl, rootEl, oldIndex, newIndex, evt);
+								_dispatchEvent(this, rootEl, 'sort', dragEl, parentEl, rootEl, oldIndex, newIndex, evt);
 							}
+
+							putSortable && putSortable.save();
 						}
 						else {
 							if (dragEl.nextSibling !== nextEl) {
@@ -3552,8 +4214,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 								if (newIndex >= 0) {
 									// drag & drop within the same list
-									_dispatchEvent(this, rootEl, 'update', dragEl, parentEl, rootEl, oldIndex, newIndex);
-									_dispatchEvent(this, rootEl, 'sort', dragEl, parentEl, rootEl, oldIndex, newIndex);
+									_dispatchEvent(this, rootEl, 'update', dragEl, parentEl, rootEl, oldIndex, newIndex, evt);
+									_dispatchEvent(this, rootEl, 'sort', dragEl, parentEl, rootEl, oldIndex, newIndex, evt);
 								}
 							}
 						}
@@ -3564,7 +4226,7 @@ return /******/ (function(modules) { // webpackBootstrap
 								newIndex = oldIndex;
 							}
 
-							_dispatchEvent(this, rootEl, 'end', dragEl, parentEl, rootEl, oldIndex, newIndex);
+							_dispatchEvent(this, rootEl, 'end', dragEl, parentEl, rootEl, oldIndex, newIndex, evt);
 
 							// Save sorting
 							this.save();
@@ -3572,7 +4234,6 @@ return /******/ (function(modules) { // webpackBootstrap
 					}
 
 				}
-
 				this._nulling();
 			},
 
@@ -3587,15 +4248,24 @@ return /******/ (function(modules) { // webpackBootstrap
 
 				scrollEl =
 				scrollParentEl =
+				autoScrolls.length =
+
+				pointerElemChangedInterval =
+				lastPointerElemX =
+				lastPointerElemY =
 
 				tapEvt =
 				touchEvt =
 
 				moved =
 				newIndex =
+				oldIndex =
 
-				lastEl =
-				lastCSS =
+				lastTarget =
+				lastDirection =
+
+				forRepaintDummy =
+				realDragElRect =
 
 				putSortable =
 				activeGroup =
@@ -3604,6 +4274,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				savedInputChecked.forEach(function (el) {
 					el.checked = true;
 				});
+
 				savedInputChecked.length = 0;
 			},
 
@@ -3614,16 +4285,12 @@ return /******/ (function(modules) { // webpackBootstrap
 						this._onDrop(evt);
 						break;
 
-					case 'dragover':
 					case 'dragenter':
+					case 'dragover':
 						if (dragEl) {
 							this._onDragOver(evt);
 							_globalDragOver(evt);
 						}
-						break;
-
-					case 'mouseover':
-						this._onDrop(evt);
 						break;
 
 					case 'selectstart':
@@ -3647,7 +4314,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 				for (; i < n; i++) {
 					el = children[i];
-					if (_closest(el, options.draggable, this.el)) {
+					if (_closest(el, options.draggable, this.el, false)) {
 						order.push(el.getAttribute(options.dataIdAttr) || _generateId(el));
 					}
 				}
@@ -3666,7 +4333,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				this.toArray().forEach(function (id, i) {
 					var el = rootEl.children[i];
 
-					if (_closest(el, this.options.draggable, rootEl)) {
+					if (_closest(el, this.options.draggable, rootEl, false)) {
 						items[id] = el;
 					}
 				}, this);
@@ -3685,7 +4352,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			 */
 			save: function () {
 				var store = this.options.store;
-				store && store.set(this);
+				store && store.set && store.set(this);
 			},
 
 
@@ -3696,7 +4363,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			 * @returns {HTMLElement|null}
 			 */
 			closest: function (el, selector) {
-				return _closest(el, selector || this.options.draggable, this.el);
+				return _closest(el, selector || this.options.draggable, this.el, false);
 			},
 
 
@@ -3737,53 +4404,70 @@ return /******/ (function(modules) { // webpackBootstrap
 					_off(el, 'dragover', this);
 					_off(el, 'dragenter', this);
 				}
-
 				// Remove draggable attributes
 				Array.prototype.forEach.call(el.querySelectorAll('[draggable]'), function (el) {
 					el.removeAttribute('draggable');
 				});
 
-				touchDragOverListeners.splice(touchDragOverListeners.indexOf(this._onDragOver), 1);
-
 				this._onDrop();
 
+				sortables.splice(sortables.indexOf(this.el), 1);
+
 				this.el = el = null;
+			},
+
+			_hideClone: function() {
+				if (!cloneEl.cloneHidden) {
+					_css(cloneEl, 'display', 'none');
+					cloneEl.cloneHidden = true;
+					if (cloneEl.parentNode && this.options.removeCloneOnHide) {
+						cloneEl.parentNode.removeChild(cloneEl);
+					}
+				}
+			},
+
+			_showClone: function(putSortable) {
+				if (putSortable.lastPutMode !== 'clone') {
+					this._hideClone();
+					return;
+				}
+
+				if (cloneEl.cloneHidden) {
+					// show clone at dragEl or original position
+					if (rootEl.contains(dragEl) && !this.options.group.revertClone) {
+						rootEl.insertBefore(cloneEl, dragEl);
+					} else if (nextEl) {
+						rootEl.insertBefore(cloneEl, nextEl);
+					} else {
+						rootEl.appendChild(cloneEl);
+					}
+
+					if (this.options.group.revertClone) {
+						this._animate(dragEl, cloneEl);
+					}
+					_css(cloneEl, 'display', '');
+					cloneEl.cloneHidden = false;
+				}
 			}
 		};
 
-
-		function _cloneHide(sortable, state) {
-			if (sortable.lastPullMode !== 'clone') {
-				state = true;
-			}
-
-			if (cloneEl && (cloneEl.state !== state)) {
-				_css(cloneEl, 'display', state ? 'none' : '');
-
-				if (!state) {
-					if (cloneEl.state) {
-						if (sortable.options.group.revertClone) {
-							rootEl.insertBefore(cloneEl, nextEl);
-							sortable._animate(dragEl, cloneEl);
-						} else {
-							rootEl.insertBefore(cloneEl, dragEl);
-						}
-					}
-				}
-
-				cloneEl.state = state;
-			}
-		}
-
-
-		function _closest(/**HTMLElement*/el, /**String*/selector, /**HTMLElement*/ctx) {
+		function _closest(/**HTMLElement*/el, /**String*/selector, /**HTMLElement*/ctx, includeCTX) {
 			if (el) {
 				ctx = ctx || document;
 
 				do {
-					if ((selector === '>*' && el.parentNode === ctx) || _matches(el, selector)) {
+					if (
+						selector != null &&
+						(
+							selector[0] === '>' && el.parentNode === ctx && _matches(el, selector.substring(1)) ||
+							_matches(el, selector)
+						) ||
+						includeCTX && el === ctx
+					) {
 						return el;
 					}
+
+					if (el === ctx) break;
 					/* jshint boss:true */
 				} while (el = _getParentOrHost(el));
 			}
@@ -3793,9 +4477,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 		function _getParentOrHost(el) {
-			var parent = el.host;
-
-			return (parent && parent.nodeType) ? parent : el.parentNode;
+			return (el.host && el !== document && el.host.nodeType)
+				? el.host
+				: el.parentNode;
 		}
 
 
@@ -3803,7 +4487,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			if (evt.dataTransfer) {
 				evt.dataTransfer.dropEffect = 'move';
 			}
-			evt.preventDefault();
+			evt.cancelable && evt.preventDefault();
 		}
 
 
@@ -3818,7 +4502,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 		function _toggleClass(el, name, state) {
-			if (el) {
+			if (el && name) {
 				if (el.classList) {
 					el.classList[state ? 'add' : 'remove'](name);
 				}
@@ -3845,12 +4529,32 @@ return /******/ (function(modules) { // webpackBootstrap
 					return prop === void 0 ? val : val[prop];
 				}
 				else {
-					if (!(prop in style)) {
+					if (!(prop in style) && prop.indexOf('webkit') === -1) {
 						prop = '-webkit-' + prop;
 					}
 
 					style[prop] = val + (typeof val === 'string' ? '' : 'px');
 				}
+			}
+		}
+
+		function _matrix(el) {
+			var appliedTransforms = '';
+			do {
+				var transform = _css(el, 'transform');
+
+				if (transform && transform !== 'none') {
+					appliedTransforms = transform + ' ' + appliedTransforms;
+				}
+				/* jshint boss:true */
+			} while (el = el.parentNode);
+
+			if (window.DOMMatrix) {
+				return new DOMMatrix(appliedTransforms);
+			} else if (window.WebKitCSSMatrix) {
+				return new WebKitCSSMatrix(appliedTransforms);
+			} else if (window.CSSMatrix) {
+				return new CSSMatrix(appliedTransforms);
 			}
 		}
 
@@ -3873,14 +4577,21 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 
-		function _dispatchEvent(sortable, rootEl, name, targetEl, toEl, fromEl, startIndex, newIndex) {
+		function _dispatchEvent(sortable, rootEl, name, targetEl, toEl, fromEl, startIndex, newIndex, originalEvt) {
 			sortable = (sortable || rootEl[expando]);
-
-			var evt = document.createEvent('Event'),
+			var evt,
 				options = sortable.options,
 				onName = 'on' + name.charAt(0).toUpperCase() + name.substr(1);
-
-			evt.initEvent(name, true, true);
+			// Support for new CustomEvent feature
+			if (window.CustomEvent && !IE11OrLess && !Edge) {
+				evt = new CustomEvent(name, {
+					bubbles: true,
+					cancelable: true
+				});
+			} else {
+				evt = document.createEvent('Event');
+				evt.initEvent(name, true, true);
+			}
 
 			evt.to = toEl || rootEl;
 			evt.from = fromEl || rootEl;
@@ -3890,7 +4601,11 @@ return /******/ (function(modules) { // webpackBootstrap
 			evt.oldIndex = startIndex;
 			evt.newIndex = newIndex;
 
-			rootEl.dispatchEvent(evt);
+			evt.originalEvent = originalEvt;
+
+			if (rootEl) {
+				rootEl.dispatchEvent(evt);
+		        }
 
 			if (options[onName]) {
 				options[onName].call(sortable, evt);
@@ -3903,17 +4618,26 @@ return /******/ (function(modules) { // webpackBootstrap
 				sortable = fromEl[expando],
 				onMoveFn = sortable.options.onMove,
 				retVal;
-
-			evt = document.createEvent('Event');
-			evt.initEvent('move', true, true);
+			// Support for new CustomEvent feature
+			if (window.CustomEvent && !IE11OrLess && !Edge) {
+				evt = new CustomEvent('move', {
+					bubbles: true,
+					cancelable: true
+				});
+			} else {
+				evt = document.createEvent('Event');
+				evt.initEvent('move', true, true);
+			}
 
 			evt.to = toEl;
 			evt.from = fromEl;
 			evt.dragged = dragEl;
 			evt.draggedRect = dragRect;
 			evt.related = targetEl || toEl;
-			evt.relatedRect = targetRect || toEl.getBoundingClientRect();
+			evt.relatedRect = targetRect || _getRect(toEl);
 			evt.willInsertAfter = willInsertAfter;
+
+			evt.originalEvent = originalEvt;
 
 			fromEl.dispatchEvent(evt);
 
@@ -3924,26 +4648,169 @@ return /******/ (function(modules) { // webpackBootstrap
 			return retVal;
 		}
 
-
 		function _disableDraggable(el) {
 			el.draggable = false;
 		}
-
 
 		function _unsilent() {
 			_silent = false;
 		}
 
+		/**
+		 * Gets nth child of el, ignoring hidden children, sortable's elements (does not ignore clone if it's visible)
+		 * and non-draggable elements
+		 * @param  {HTMLElement} el       The parent element
+		 * @param  {Number} childNum      The index of the child
+		 * @param  {Object} options       Parent Sortable's options
+		 * @return {HTMLElement}          The child at index childNum, or null if not found
+		 */
+		function _getChild(el, childNum, options) {
+			var currentChild = 0,
+				i = 0,
+				children = el.children;
 
-		/** @returns {HTMLElement|false} */
-		function _ghostIsLast(el, evt) {
-			var lastEl = el.lastElementChild,
-				rect = lastEl.getBoundingClientRect();
+			while (i < children.length) {
+				if (
+					children[i].style.display !== 'none' &&
+					children[i] !== ghostEl &&
+					children[i] !== dragEl &&
+					_closest(children[i], options.draggable, el, false)
+				) {
+					if (currentChild === childNum) {
+						return children[i];
+					}
+					currentChild++;
+				}
 
-			// 5 — min delta
-			// abs — нельзя добавлять, а то глюки при наведении сверху
-			return (evt.clientY - (rect.top + rect.height) > 5) ||
-				(evt.clientX - (rect.left + rect.width) > 5);
+				i++;
+			}
+			return null;
+		}
+
+		/**
+		 * Gets the last child in the el, ignoring ghostEl or invisible elements (clones)
+		 * @param  {HTMLElement} el       Parent element
+		 * @return {HTMLElement}          The last child, ignoring ghostEl
+		 */
+		function _lastChild(el) {
+			var last = el.lastElementChild;
+
+			while (last === ghostEl || last.style.display === 'none') {
+				last = last.previousElementSibling;
+
+				if (!last) break;
+			}
+
+			return last || null;
+		}
+
+		function _ghostIsLast(evt, axis, el) {
+			var elRect = _getRect(_lastChild(el)),
+				mouseOnAxis = axis === 'vertical' ? evt.clientY : evt.clientX,
+				mouseOnOppAxis = axis === 'vertical' ? evt.clientX : evt.clientY,
+				targetS2 = axis === 'vertical' ? elRect.bottom : elRect.right,
+				targetS1Opp = axis === 'vertical' ? elRect.left : elRect.top,
+				targetS2Opp = axis === 'vertical' ? elRect.right : elRect.bottom,
+				spacer = 10;
+
+			return (
+				axis === 'vertical' ?
+					(mouseOnOppAxis > targetS2Opp + spacer || mouseOnOppAxis <= targetS2Opp && mouseOnAxis > targetS2 && mouseOnOppAxis >= targetS1Opp) :
+					(mouseOnAxis > targetS2 && mouseOnOppAxis > targetS1Opp || mouseOnAxis <= targetS2 && mouseOnOppAxis > targetS2Opp + spacer)
+			);
+		}
+
+		function _getSwapDirection(evt, target, axis, swapThreshold, invertedSwapThreshold, invertSwap, isLastTarget) {
+			var targetRect = _getRect(target),
+				mouseOnAxis = axis === 'vertical' ? evt.clientY : evt.clientX,
+				targetLength = axis === 'vertical' ? targetRect.height : targetRect.width,
+				targetS1 = axis === 'vertical' ? targetRect.top : targetRect.left,
+				targetS2 = axis === 'vertical' ? targetRect.bottom : targetRect.right,
+				dragRect = _getRect(dragEl),
+				invert = false;
+
+
+			if (!invertSwap) {
+				// Never invert or create dragEl shadow when target movemenet causes mouse to move past the end of regular swapThreshold
+				if (isLastTarget && targetMoveDistance < targetLength * swapThreshold) { // multiplied only by swapThreshold because mouse will already be inside target by (1 - threshold) * targetLength / 2
+					// check if past first invert threshold on side opposite of lastDirection
+					if (!pastFirstInvertThresh &&
+						(lastDirection === 1 ?
+							(
+								mouseOnAxis > targetS1 + targetLength * invertedSwapThreshold / 2
+							) :
+							(
+								mouseOnAxis < targetS2 - targetLength * invertedSwapThreshold / 2
+							)
+						)
+					)
+					{
+						// past first invert threshold, do not restrict inverted threshold to dragEl shadow
+						pastFirstInvertThresh = true;
+					}
+
+					if (!pastFirstInvertThresh) {
+						var dragS1 = axis === 'vertical' ? dragRect.top : dragRect.left,
+							dragS2 = axis === 'vertical' ? dragRect.bottom : dragRect.right;
+						// dragEl shadow (target move distance shadow)
+						if (
+							lastDirection === 1 ?
+							(
+								mouseOnAxis < targetS1 + targetMoveDistance // over dragEl shadow
+							) :
+							(
+								mouseOnAxis > targetS2 - targetMoveDistance
+							)
+						)
+						{
+							return lastDirection * -1;
+						}
+					} else {
+						invert = true;
+					}
+				} else {
+					// Regular
+					if (
+						mouseOnAxis > targetS1 + (targetLength * (1 - swapThreshold) / 2) &&
+						mouseOnAxis < targetS2 - (targetLength * (1 - swapThreshold) / 2)
+					) {
+						return ((mouseOnAxis > targetS1 + targetLength / 2) ? -1 : 1);
+					}
+				}
+			}
+
+			invert = invert || invertSwap;
+
+			if (invert) {
+				// Invert of regular
+				if (
+					mouseOnAxis < targetS1 + (targetLength * invertedSwapThreshold / 2) ||
+					mouseOnAxis > targetS2 - (targetLength * invertedSwapThreshold / 2)
+				)
+				{
+					return ((mouseOnAxis > targetS1 + targetLength / 2) ? 1 : -1);
+				}
+			}
+
+			return 0;
+		}
+
+		/**
+		 * Gets the direction dragEl must be swapped relative to target in order to make it
+		 * seem that dragEl has been "inserted" into that element's position
+		 * @param  {HTMLElement} target       The target whose position dragEl is being inserted at
+		 * @param  {Object} options           options of the parent sortable
+		 * @return {Number}                   Direction dragEl must be swapped
+		 */
+		function _getInsertDirection(target, options) {
+			var dragElIndex = _index(dragEl, options.draggable),
+				targetIndex = _index(target, options.draggable);
+
+			if (dragElIndex < targetIndex) {
+				return 1;
+			} else {
+				return -1;
+			}
 		}
 
 
@@ -3980,7 +4847,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			}
 
 			while (el && (el = el.previousElementSibling)) {
-				if ((el.nodeName.toUpperCase() !== 'TEMPLATE') && (selector === '>*' || _matches(el, selector))) {
+				if ((el.nodeName.toUpperCase() !== 'TEMPLATE') && el !== cloneEl) {
 					index++;
 				}
 			}
@@ -3990,39 +4857,45 @@ return /******/ (function(modules) { // webpackBootstrap
 
 		function _matches(/**HTMLElement*/el, /**String*/selector) {
 			if (el) {
-				selector = selector.split('.');
-
-				var tag = selector.shift().toUpperCase(),
-					re = new RegExp('\\s(' + selector.join('|') + ')(?=\\s)', 'g');
-
-				return (
-					(tag === '' || el.nodeName.toUpperCase() == tag) &&
-					(!selector.length || ((' ' + el.className + ' ').match(re) || []).length == selector.length)
-				);
+				try {
+					if (el.matches) {
+						return el.matches(selector);
+					} else if (el.msMatchesSelector) {
+						return el.msMatchesSelector(selector);
+					} else if (el.webkitMatchesSelector) {
+						return el.webkitMatchesSelector(selector);
+					}
+				} catch(_) {
+					return false;
+				}
 			}
 
 			return false;
 		}
 
+		var _throttleTimeout;
 		function _throttle(callback, ms) {
-			var args, _this;
-
 			return function () {
-				if (args === void 0) {
-					args = arguments;
-					_this = this;
+				if (!_throttleTimeout) {
+					var args = arguments,
+						_this = this;
 
-					setTimeout(function () {
+					_throttleTimeout = setTimeout(function () {
 						if (args.length === 1) {
 							callback.call(_this, args[0]);
 						} else {
 							callback.apply(_this, args);
 						}
 
-						args = void 0;
+						_throttleTimeout = void 0;
 					}, ms);
 				}
 			};
+		}
+
+		function _cancelThrottle() {
+			clearTimeout(_throttleTimeout);
+			_throttleTimeout = void 0;
 		}
 
 		function _extend(dst, src) {
@@ -4050,6 +4923,8 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 
 		function _saveInputCheckedState(root) {
+			savedInputChecked.length = 0;
+
 			var inputs = root.getElementsByTagName('input');
 			var idx = inputs.length;
 
@@ -4067,12 +4942,132 @@ return /******/ (function(modules) { // webpackBootstrap
 			return clearTimeout(id);
 		}
 
+
+		/**
+		 * Returns the "bounding client rect" of given element
+		 * @param  {HTMLElement} el                The element whose boundingClientRect is wanted
+		 * @param  {[HTMLElement]} container       the parent the element will be placed in
+		 * @param  {[Boolean]} adjustForTransform  Whether the rect should compensate for parent's transform
+		 * (used for fixed positioning on el)
+		 * @return {Object}                        The boundingClientRect of el
+		 */
+		function _getRect(el, container, adjustForTransform) {
+			if (!el.getBoundingClientRect && el !== win) return;
+
+			var elRect,
+				top,
+				left,
+				bottom,
+				right,
+				height,
+				width;
+
+			if (el !== win) {
+				elRect = el.getBoundingClientRect();
+				top = elRect.top;
+				left = elRect.left;
+				bottom = elRect.bottom;
+				right = elRect.right;
+				height = elRect.height;
+				width = elRect.width;
+			} else {
+				top = 0;
+				left = 0;
+				bottom = window.innerHeight;
+				right = window.innerWidth;
+				height = window.innerHeight;
+				width = window.innerWidth;
+			}
+
+			if (adjustForTransform && el !== win) {
+				// Adjust for translate()
+				container = container || el.parentNode;
+
+				// solves #1123 (see: https://stackoverflow.com/a/37953806/6088312)
+				// Not needed on <= IE11
+				if (!IE11OrLess) {
+					do {
+						if (container && container.getBoundingClientRect && _css(container, 'transform') !== 'none') {
+							var containerRect = container.getBoundingClientRect();
+
+							// Set relative to edges of padding box of container
+							top -= containerRect.top + parseInt(_css(container, 'border-top-width'));
+							left -= containerRect.left + parseInt(_css(container, 'border-left-width'));
+							bottom = top + elRect.height;
+							right = left + elRect.width;
+
+							break;
+						}
+						/* jshint boss:true */
+					} while (container = container.parentNode);
+				}
+
+				// Adjust for scale()
+				var matrix = _matrix(el),
+					scaleX = matrix && matrix.a,
+					scaleY = matrix && matrix.d;
+
+				if (matrix) {
+					top /= scaleY;
+					left /= scaleX;
+
+					width /= scaleX;
+					height /= scaleY;
+
+					bottom = top + height;
+					right = left + width;
+				}
+			}
+
+			return {
+				top: top,
+				left: left,
+				bottom: bottom,
+				right: right,
+				width: width,
+				height: height
+			};
+		}
+
+
+		/**
+		 * Checks if a side of an element is scrolled past a side of it's parents
+		 * @param  {HTMLElement}  el       The element who's side being scrolled out of view is in question
+		 * @param  {String}       side     Side of the element in question ('top', 'left', 'right', 'bottom')
+		 * @return {Boolean}               Whether the element is overflowing the viewport on the given side of it's parent
+		 */
+		function _isScrolledPast(el, side) {
+			var parent = _getParentAutoScrollElement(parent, true),
+				elSide = _getRect(el)[side];
+
+			/* jshint boss:true */
+			while (parent) {
+				var parentSide = _getRect(parent)[side],
+					visible;
+
+				if (side === 'top' || side === 'left') {
+					visible = elSide >= parentSide;
+				} else {
+					visible = elSide <= parentSide;
+				}
+
+				if (!visible) return true;
+
+				if (parent === win) break;
+
+				parent = _getParentAutoScrollElement(parent, false);
+			}
+
+			return false;
+		}
+
 		// Fixed #973:
-		_on(document, 'touchmove', function (evt) {
-			if (Sortable.active) {
+		_on(document, 'touchmove', function(evt) {
+			if ((Sortable.active || awaitingDragStarted) && evt.cancelable) {
 				evt.preventDefault();
 			}
 		});
+
 
 		// Export utils
 		Sortable.utils = {
@@ -4081,7 +5076,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			css: _css,
 			find: _find,
 			is: function (el, selector) {
-				return !!_closest(el, selector, el);
+				return !!_closest(el, selector, el, false);
 			},
 			extend: _extend,
 			throttle: _throttle,
@@ -4090,7 +5085,9 @@ return /******/ (function(modules) { // webpackBootstrap
 			clone: _clone,
 			index: _index,
 			nextTick: _nextTick,
-			cancelNextTick: _cancelNextTick
+			cancelNextTick: _cancelNextTick,
+			detectDirection: _detectDirection,
+			getChild: _getChild
 		};
 
 
@@ -4105,7 +5102,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 		// Export
-		Sortable.version = '1.7.0';
+		Sortable.version = '1.8.3';
 		return Sortable;
 	});
 
@@ -4303,7 +5300,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: 'componentWillUnmount',
 	    value: function componentWillUnmount() {
 	      if (this.sortable) {
-	        this.sortable.destory();
+	        this.sortable.destroy();
 	        this.sortable = null;
 	      }
 	    }
@@ -5020,7 +6017,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: 'componentWillUnmount',
 	    value: function componentWillUnmount() {
 	      if (this.sortable) {
-	        this.sortable.destory();
+	        this.sortable.destroy();
 	        this.sortable = null;
 	      }
 	    }
